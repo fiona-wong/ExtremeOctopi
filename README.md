@@ -1,13 +1,13 @@
-# Project Name
+# FriendZone
 
-> Pithy project description
+> FriendZone is an app that matches people who share common interests. It uses cutting edge testing algorithms to optimize user experience and provides them with a select list of their best matches. Users are also able to easily communicate with their matches through in-app services. The app aims to create a simple yet effective user interface that is intuitive and aesthetically pleasing.
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Andy Lien
+  - Fiona Wong
+  - Lara Ismael
+  - Marc Perry
 
 ## Table of Contents
 
@@ -26,10 +26,12 @@
 ## Requirements
 
 - Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Express 4.15.0
+- React 15.4.2
+- ReactDOM 5.4.2
+- jQuery 3.1.1
+- Mongoose 4.8.6
+- Body parser 1.17.2
 
 ## Development
 
@@ -38,9 +40,7 @@
 From within the root directory:
 
 ```sh
-npm install -g bower
 npm install
-bower install
 ```
 
 ### Roadmap

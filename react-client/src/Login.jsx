@@ -24,7 +24,8 @@ class Login extends React.Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
     $.ajax({
       url: '/login',
       method: 'POST',
@@ -46,7 +47,7 @@ class Login extends React.Component {
   render () {
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
         <label>
           Username:
           <input
@@ -63,7 +64,7 @@ class Login extends React.Component {
             onChange={this.handleInputChange} />
         </label>
         <br />
-        <input type="submit" value="Submit" onSubmit={this.handleSubmit}/>
+        <input type="submit" value="Submit"/>
       </form>
       </div>
     )

@@ -1,3 +1,4 @@
+//main.js
 var db = require( '../database-mongo' );
 var body = require( 'body-parser' );
 var express = require( 'express' );
@@ -9,25 +10,30 @@ app.use( express.static( __dirname + '/../react-client/dist' ) );
 
 // wating for authentication
 request.post('/login', (req, res) => {
-		//db.func
+		
 		res.status(201).send(JSON.parse(data));	
 })
 
-	// wating for authentication
-	request.post('/signup', (req, res) => {
-		//db.func
-		res.status(201).send(JSON.parse(data));	
+request.post('/signup', (req, res) => {
+	postUser(req.body, (bool) => {
+		res.status(201).send(JSON.parse(bool));	
+	})	
 })
 
 request.post('/test', (req, res) => {
-	db.testResults(req.body.username, req.body.results);
+	db.postTestResults(req.body.username, req.body.results);
 })	
 
 request.post('/message', (req, res) => {
 	db.postMessage(req.body.sender, req.body.receiver, req.body.message);	
 })	
 
-request.get('/matching', (req, res) => {
+request.post('/matches', (req, res) => {
+	db.postMatches(req.body.username, req.body.testResults);	
+})
+
+
+request.get('/matches', (req, res) => {
 	db.getMatches(req.body.username, (matches) => {
 		res.status(200).send(JSON.parse(matches));	
 	})
@@ -56,6 +62,6 @@ app.listen( 3000, function() {
 
 	NOTES:
 
-	I added npm request to package.json
+	Lara added npm request to package.json
 
 	*/

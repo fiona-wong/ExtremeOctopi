@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
-
 class Signup extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +25,9 @@ class Signup extends React.Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
+
     $.ajax({
       url: '/signup',
       method: 'POST',
@@ -50,7 +51,7 @@ class Signup extends React.Component {
   render () {
     return (
       <div>
-        <form className="form-signin">
+        <form onSubmit={this.handleSubmit}>
         <label>
           Username:
           <input
@@ -84,7 +85,7 @@ class Signup extends React.Component {
         </label>
         <br />
         <br />
-        <input type="submit" value="Submit" onSubmit={this.handleSubmit}/>
+        <input type="submit" value="Submit"/>
       </form>
       </div>
     )

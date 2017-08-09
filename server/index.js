@@ -42,9 +42,45 @@ request.post('/test', (err, res, data) => {
 	res.status(201).send(JSON.parse(data))	
 })	
 
+// get request matching page
+	// user table
+	// matches
+request('/matching', (req, res) => {
+	if (err) {console.error(err)}	
+	
+	//db.func
+	res.status(200).send(JSON.parse(req.body))	
+})	
+
+// get request profile page
+	// user table
+request('/profile', (req, res) => {
+	if (err) {console.error(err)}	
+	
+	//db.func
+	res.status(200).send(JSON.parse(req.body))	
+})		
+	
+
+// get request messages
+	// user id / friend id / message
+request('/message', (req, res) => {
+	if (err) {console.error(err)}	
+	
+	//db.func
+	res.status(200).send(JSON.parse(req.body))	
+})	
+
+
 app.listen( 3000, function() {
   console.log( 'listening on port 3000!' );
 } );
+
+app.listen( 3000, function() {
+  console.log( 'listening on port 3000!' );
+} );
+
+
 
 	/*
 

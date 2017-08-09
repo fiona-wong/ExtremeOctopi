@@ -209,6 +209,15 @@ var postMatches = function(user1, userResults) {
 }
 
 
+module.exports.postUser = postUser;
+module.exports.getHash = getHash;
+module.exports.setCookie = setCookie;
+module.exports.getProfile = getProfile;
+module.exports.getMatches = getMatches;
+module.exports.getMessages = getMessages;
+module.exports.postTestResults = postTestResults;
+module.exports.postMessage = postMessage;
+module.exports.postMatches = postMatches;
 
 
 

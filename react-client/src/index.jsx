@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import Signup from './Signup.jsx';
+import Login from './Login.jsx';
 
 class App extends React.Component {
   constructor( props ) {
     super( props );
-    this.state = {}
+    this.state = {
+    }
   }
 
   componentDidMount() {
@@ -19,6 +22,7 @@ class App extends React.Component {
       }
     } );
   }
+
 
   render () {
     return (

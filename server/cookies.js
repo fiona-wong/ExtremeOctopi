@@ -1,5 +1,6 @@
 const crypto = require( 'cryto' );
 const Promise = require( 'bluebird' );
+const Database = require( '../database-mongo/index');
 
 exports.bakeCookies = ( algorithm = 'sha256' ) => {
   var randomString = crypto.randomBytes( 32 ).toString( 'hex' );
@@ -26,9 +27,51 @@ exports.parseCookies = ( req, res, next ) => {
 };
 
 exports.createSession = ( req, res, next ) => {
-  
+  Promise.resolve( req.cookies.takoyaki )
+  .then( ( cookie ) => {
+    if ( !cookie ) {
+      throw cookie;
+    }
+
+    return Database.getCookie( cookie );
+  } )
+  .tap( ( session ) => {
+    if ( !session.username ) {
+      throw session;
+    }
+
+    req.session = session;
+
+    next();
+  } );
+  .catch( ( error ) => {
+    var cookie = this.bakeCookies();
+    
+    Database.setCookie( cookie );
+
+    req.session = {};
+    res.cookie( 'takoyaki', cookie );
+
+    next();
+  } );
 };
 
-exports.verifySession = ( session ) => {
-  
+exports.verifySession = ( req, res, next ) => {
+  if ( req.session.username ) {
+    next();
+  } else {
+    res.redirect( '/login' );
+  }
 };
+
+//bakeCookies
+//MinimumInput; Output = Random 32 Byte Cookie;
+
+//parseCookies
+//MinimumInput = Server Request, Server Response, Express Function next; Output;
+
+//createSession
+//MinimumInput = Server Request, Server Response, Express Function next; Output;
+
+//verifySession
+//MinimumInput = Server Request, Server Response, Express Function next; Output;

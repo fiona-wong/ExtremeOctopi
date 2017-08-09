@@ -15,11 +15,7 @@ exports.generateHash = ( password, salt = '', algorithm = 'sha256' ) => {
 exports.authenticate = ( attemptedPassword, password, salt = '', algorithm = 'sha256' ) => {
   var attemptedPassword = this.generateHash( attemptedPassword, salt, algorithm );
 
-  if ( attemptedPassword === password ) {
-    return true;
-  } else {
-    return false;
-  }
+  return attemptedPassword === password;
 };
 
 //generateSalt

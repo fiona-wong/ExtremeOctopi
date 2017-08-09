@@ -1,7 +1,7 @@
 const cryto = require( 'cryto' );
 
-exports.generateSalt = () => {
-  return crypto.randomBytes( 32 ).toString( 'hex' );
+exports.generateSalt = ( bytes = 32 ) => {
+  return crypto.randomBytes( bytes ).toString( 'hex' );
 };
 
 exports.generateHash = ( password, salt = '', algorithm = 'sha256' ) => {

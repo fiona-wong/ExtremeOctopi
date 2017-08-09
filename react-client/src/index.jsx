@@ -11,22 +11,10 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-    $.ajax( {
-      url: '/', 
-      success: ( data ) => {
-        console.log( data );
-      },
-      error: ( error ) => {
-        console.log( 'ERROR: ', error );
-      }
-    } );
-  }
-
-
   render () {
     return (
       <div>
+      <Signup />
       </div>
     )
   }

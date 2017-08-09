@@ -48,7 +48,8 @@ var userSchema = mongoose.Schema({
 var messageSchema= mongoose.Schema({
   sender: String,
   receiver: String,
-  message: String
+  message: String,
+  time: Number
 });
 
 var testResultsSchema = mongoose.Schema({
@@ -66,7 +67,7 @@ var Test = mongoose.model('Test', testResultsSchema);
 
 // userInfo = {username, password, fullname, email, location, cookies},
 // callback = false: user already exists - true: user created successfully
-var createUser = function(userInfo, callback) {
+var postUser = function(userInfo, callback) {
   User.findOne({ username: userInfo.username }, function(err, doc) {
     if(doc) {
       callback(false);
@@ -83,6 +84,7 @@ var createUser = function(userInfo, callback) {
       user.save(function(err, addition) {
         if(err) {
           console.log(err);
+          callback(false);
         } else {
           callback(true)
         }
@@ -102,6 +104,7 @@ var getHash = function(user, callback) {
   })
 }
 
+
 // user = username, cookies = cookie
 var setCookie = function(user, cookie) {
   User.findOnce({username: user}, function(err, doc){
@@ -111,20 +114,14 @@ var setCookie = function(user, cookie) {
     } else {
       console.log('User not found');
     }
-  }
-}
-
-// user = username, results = type
-var testResults = function(user, results) {
-  User.findOnce({username: user.name}, function(err,doc) {
-    if(doc) {
-      User.update({username: user},
-        {$set: { testResults: results }}, {upsert: true})
-    } else {
-      console.log('User not found');
-    }
   })
 }
+
+//user = username
+var removeCookie = function(user) {
+
+}
+
 
 // user = username, callback = full User row
 var getProfile = function(user, callback) {
@@ -160,6 +157,18 @@ var getMessages = function(user, callback) {
       callback(results);
     })
 
+  })
+}
+
+// user = username, results = type
+var postTestResults = function(user, results) {
+  User.findOnce({username: user.name}, function(err,doc) {
+    if(doc) {
+      User.update({username: user},
+        {$set: { testResults: results }}, {upsert: true})
+    } else {
+      console.log('User not found');
+    }
   })
 }
 

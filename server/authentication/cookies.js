@@ -1,6 +1,6 @@
 const crypto = require( 'cryto' );
 const Promise = require( 'bluebird' );
-const Database = require( '../database-mongo/index');
+const Database = require( '.../database-mongo/index');
 
 exports.bakeCookies = ( algorithm = 'sha256' ) => {
   var randomString = crypto.randomBytes( 32 ).toString( 'hex' );

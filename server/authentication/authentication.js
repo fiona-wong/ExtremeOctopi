@@ -1,4 +1,4 @@
-const cryto = require( 'cryto' );
+const crypto = require( 'crypto' );
 
 exports.generateSalt = ( bytes = 32 ) => {
   return crypto.randomBytes( bytes ).toString( 'hex' );

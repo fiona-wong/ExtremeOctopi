@@ -1,9 +1,9 @@
-const crypto = require( 'crypto' );
+const crypto = require( 'cryto' );
 const Promise = require( 'bluebird' );
-const Database = require( '../../database-mongo/index.js' );
+const Database = require( '../database-mongo/index');
 
-exports.bakeCookies = ( bytes = 32, algorithm = 'sha256' ) => {
-  var randomString = crypto.randomBytes( bytes ).toString( 'hex' );
+exports.bakeCookies = ( algorithm = 'sha256' ) => {
+  var randomString = crypto.randomBytes( 32 ).toString( 'hex' );
   var hash = crypto.createHash( algorithm );
 
   hash.update( randomString )
@@ -11,19 +11,16 @@ exports.bakeCookies = ( bytes = 32, algorithm = 'sha256' ) => {
   return hash.digest( 'hex' );
 };
 
-exports.parseCookies = ( req, next ) => {
-  var cookieString = req.get( 'Cookie' );
+exports.parseCookies = ( req, res, next ) => {
+  var cookieString = req.get( 'Cookie' ) || '';
+  var cookies = cookieString.split( '; ' );
 
-  if ( cookieString ) {
-    var cookies = cookieString.split( '; ' );
+  req.cookies = req.cookies || {};
 
-    req.cookies = req.cookies || {};
+  for ( var i = 0; i !== cookies.length; i++ ) {
+    var cookie = cookies[ i ].split( '=' );
 
-    for ( var i = 0; i !== cookies.length; i++ ) {
-      var cookie = cookies[ i ].split( '=' );
-
-      req.cookies[ cookie[ 0 ] ] = cookie[ 1 ];
-    }
+    req.cookies[ cookie[ 0 ] ] = cookie[ 1 ];
   }
 
   next();
@@ -46,7 +43,7 @@ exports.createSession = ( req, res, next ) => {
     req.session = session;
 
     next();
-  } )
+  } );
   .catch( ( error ) => {
     var cookie = this.bakeCookies();
     
@@ -71,7 +68,7 @@ exports.verifySession = ( req, res, next ) => {
 //MinimumInput; Output = Random 32 Byte Cookie;
 
 //parseCookies
-//MinimumInput = Server Request, Express Function next; Output;
+//MinimumInput = Server Request, Server Response, Express Function next; Output;
 
 //createSession
 //MinimumInput = Server Request, Server Response, Express Function next; Output;

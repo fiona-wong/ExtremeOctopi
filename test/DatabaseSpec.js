@@ -1,5 +1,6 @@
 var db = require( '../database-mongo' );
 var app = require('../server/index.js');
+var request = require('request');
 
 db.clear(() => {
 

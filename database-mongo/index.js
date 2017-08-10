@@ -1,4 +1,5 @@
 var mongoose = require( 'mongoose' );
+var Schema = mongoose.Schema;
 mongoose.connect( 'mongodb://localhost/test' );
 
 var db = mongoose.connection;
@@ -53,7 +54,7 @@ var messageSchema= mongoose.Schema({
 });
 
 var testResultsSchema = mongoose.Schema({
-  user: String,
+  username: String,
   match: String,
   compatability: Number,
   alreadyMatches: Boolean
@@ -65,57 +66,20 @@ var Message = mongoose.model('Message', messageSchema);
 var Test = mongoose.model('Test', testResultsSchema);
 
 
-// userInfo = {username, password, fullname, email, location, cookies},
-// callback = false: user already exists - true: user created successfully
-var postUser = function(userInfo, callback) {
-  User.findOne({ username: userInfo.username }, function(err, doc) {
-    if(doc) {
-      callback(false);
-    } else {
-      var user = new User({
-        username: userInfo.username,
-        password: userInfo.password,
-        fullname: userInfo.fullname,
-        email: userInfo.email,
-        location: userInfo.location,
-        cookies: userInfo.cookies
 
-      });
-      user.save(function(err, addition) {
-        if(err) {
-          console.log(err);
-          callback(false);
-        } else {
-          callback(true)
-        }
-      });
-    }
-  })
-}
 
 // user = username, callback = hash, callback = return password or null if pw not present
 var getHash = function(user, callback) {
-  User.findOnce({username: user}, function(err, doc){
+  User.findOne({username: user}, function(err, doc){
     if(doc) {
       callback(doc.password);
     } else {
+      console.log('null')
       callback(null);
     }
   })
 }
 
-
-// user = username, cookies = cookie
-var setCookie = function(user, cookie) {
-  User.findOnce({username: user}, function(err, doc){
-    if(doc) {
-      User.update({username: user},
-        {$set: {cookies: cookie}}, {upsert: true})
-    } else {
-      console.log('User not found');
-    }
-  })
-}
 
 //user = username
 var removeCookie = function(user) {
@@ -125,7 +89,7 @@ var removeCookie = function(user) {
 
 // user = username, callback = full User row
 var getProfile = function(user, callback) {
-  User.find({username: user}, function(err, doc) {
+  User.findOne({username: user}, (err, doc) => {
     if(doc) {
       callback(doc);
     } else {
@@ -136,9 +100,14 @@ var getProfile = function(user, callback) {
 
 // user = username, callback = matches for that user
 var getMatches = function(user, callback) {
-  User.find({username: user}, function(err, doc) {
-    if(doc) {
-      callback(doc.matches);
+  Test.find({username: user}, function(err, matches) {
+    if(matches) {
+      var results = matches.map( (match) => {
+        return {compatability: match.compatability, match: match.match};
+      });
+
+      callback(results);
+
     } else {
       console.log('User not found');
     }
@@ -160,64 +129,145 @@ var getMessages = function(user, callback) {
   })
 }
 
+var getCookieUser = function(cookie) {
+  User.find({cookies: cookies}, (matches) => {
+    if(matches.length > 0){
+      callback({username: matches.username});
+      return {username: matches.username};
+    } else {
+      callback({});
+      return {};
+    }
+  })
+}
+
+
+
+// userInfo = {username, password, fullname, email, location, cookies},
+// callback = false: user already exists - true: user created successfully
+var postUser = function(userInfo, cookie, callback) {
+  User.findOne({ username: userInfo.username }, (err, doc) => {
+    if(doc) {
+      console.log('User already exists');
+      callback(false);
+    } else {
+
+      User.update({cookies: cookie},
+        {$set:{
+          username: userInfo.username,
+          password: userInfo.password,
+          fullname: userInfo.fullname,
+          email: userInfo.email,
+          location: userInfo.location
+        }
+      }, {upsert: true}, (err, user) => callback(true));
+    }
+  })
+}
+
+// TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!
+var postCookie = function(cookie, callback) {
+  User.find({cookies: cookie}, function(err, doc) {
+    if(doc) {
+      callback(false);
+      return false;
+    } else {
+      var user = new User({cookies: cookie});
+      user.save();
+      callback(true);
+      return true;
+    }
+  })
+}
+
+
 // user = username, results = type
-var postTestResults = function(user, results) {
-  User.findOnce({username: user.name}, function(err,doc) {
+var postTestResults = function(user, results, callback) {
+  User.findOne({username: user}, function(err,doc) {
     if(doc) {
       User.update({username: user},
-        {$set: { testResults: results }}, {upsert: true})
+        {$set: { testResults: results }}, {upsert: true}, () => {
+          postMatches(user, results, () => {
+            callback();
+          })
+        });
     } else {
-      console.log('User not found');
+      console.log('User not found in postTestResults');
     }
   })
 }
 
 // senderName = sender, receiverName = receiver, messageText = message
-var postMessage = function(senderName, receiverName, messageText) {
+var postMessage = function(senderName, receiverName, messageText, callback) {
   var message = new Message({
     sender: senderName,
     receiver: receiverName,
     message: messageText
   });
 
-  message.save();
+  message.save(function(){
+    callback();
+  });
 }
 
 // user1 = username that we want results for, matchInfo = a list that matches all the other users
-var postMatches = function(user1, userResults) {
-  User.find({}, {username: 1, testResults: 1}).forEach(function(user2) {
-    if(user1 !== user2.username) {
-      var test1 = new Test({
-        user: user1,
-        match: user2.username,
-        compatability: mbti[userResults][user2.testResults],
-        alreadyMatches: false
-      });
+var postMatches = function(user1, userResults, callback) {
+  User.find({}, {username: 1, testResults: 1}, (err, users) => {
+    var counter = 0;
+    users.forEach(function(user2){
+      counter++;
+      if(user1 !== user2.username && user2.testResults !== undefined) {
+        var test1 = new Test({
+          username: user1,
+          match: user2.username,
+          compatability: mbti[userResults][user2.testResults],
+          alreadyMatches: false
+        });
 
-      test1.save();
+        test1.save( () => {
+          var test2 = new Test({
+            username: user2.username,
+            match: user1,
+            compatability: mbti[user2.testResults][userResults],
+            alreadyMatches: false
+          });
 
-      var test2 = new Test({
-        user: user2.username,
-        match: user1,
-        compatability: mbti[user2.testResults][userResults],
-        alreadyMatches: false
-      });
+          test2.save( () => {
+            if(counter === users.length) {
+              callback();
+            }
+          });
+        })
+      } else {
 
-      test2.save();
-    }
+        if(counter === users.length) {
+          callback();
+        }
+      }
+    })
   })
 }
 
+var clear = (callback) => {
+  User.remove({}, () => {
+    Message.remove({}, () => {
+      Test.remove({}, () => {
+        callback();
+      });
+    });
+  });
+}
 
-module.exports.postUser = postUser;
 module.exports.getHash = getHash;
-module.exports.setCookie = setCookie;
 module.exports.getProfile = getProfile;
 module.exports.getMatches = getMatches;
 module.exports.getMessages = getMessages;
+module.exports.postUser = postUser;
+module.exports.postCookie = postCookie;
 module.exports.postTestResults = postTestResults;
 module.exports.postMessage = postMessage;
 module.exports.postMatches = postMatches;
+module.exports.clear = clear;
 
 
 

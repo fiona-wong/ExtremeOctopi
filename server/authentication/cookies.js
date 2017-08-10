@@ -1,6 +1,6 @@
-const crypto = require( 'cryto' );
+const crypto = require( 'crypto' );
 const Promise = require( 'bluebird' );
-const Database = require( '.../database-mongo/index');
+const Database = require( '../../database-mongo/index.js' );
 
 exports.bakeCookies = ( algorithm = 'sha256' ) => {
   var randomString = crypto.randomBytes( 32 ).toString( 'hex' );
@@ -43,7 +43,7 @@ exports.createSession = ( req, res, next ) => {
     req.session = session;
 
     next();
-  } );
+  } )
   .catch( ( error ) => {
     var cookie = this.bakeCookies();
     

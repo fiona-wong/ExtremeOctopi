@@ -2,8 +2,8 @@ const crypto = require( 'crypto' );
 const Promise = require( 'bluebird' );
 const Database = require( '../../database-mongo/index.js' );
 
-exports.bakeCookies = ( algorithm = 'sha256' ) => {
-  var randomString = crypto.randomBytes( 32 ).toString( 'hex' );
+exports.bakeCookies = ( bytes = 32, algorithm = 'sha256' ) => {
+  var randomString = crypto.randomBytes( bytes ).toString( 'hex' );
   var hash = crypto.createHash( algorithm );
 
   hash.update( randomString )
@@ -11,16 +11,19 @@ exports.bakeCookies = ( algorithm = 'sha256' ) => {
   return hash.digest( 'hex' );
 };
 
-exports.parseCookies = ( req, res, next ) => {
-  var cookieString = req.get( 'Cookie' ) || '';
-  var cookies = cookieString.split( '; ' );
+exports.parseCookies = ( req, next ) => {
+  var cookieString = req.get( 'Cookie' );
 
-  req.cookies = req.cookies || {};
+  if ( cookieString ) {
+    var cookies = cookieString.split( '; ' );
 
-  for ( var i = 0; i !== cookies.length; i++ ) {
-    var cookie = cookies[ i ].split( '=' );
+    req.cookies = req.cookies || {};
 
-    req.cookies[ cookie[ 0 ] ] = cookie[ 1 ];
+    for ( var i = 0; i !== cookies.length; i++ ) {
+      var cookie = cookies[ i ].split( '=' );
+
+      req.cookies[ cookie[ 0 ] ] = cookie[ 1 ];
+    }
   }
 
   next();

@@ -71,7 +71,7 @@ exports.verifySession = ( req, res, next ) => {
 //MinimumInput; Output = Random 32 Byte Cookie;
 
 //parseCookies
-//MinimumInput = Server Request, Server Response, Express Function next; Output;
+//MinimumInput = Server Request, Express Function next; Output;
 
 //createSession
 //MinimumInput = Server Request, Server Response, Express Function next; Output;

@@ -24,7 +24,6 @@ const EditProfile = (props) => (
       <input type="submit" value="Edit Profile" />
     </form>
   </div>
-
 )
 
 export default EditProfile

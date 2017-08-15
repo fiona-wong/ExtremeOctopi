@@ -11,44 +11,43 @@ var app = express();
 app.use( express.static( __dirname + '/../react-client/dist' ) );
 
 
-wating for authentication
-request.post('/login', (req, res) => {
-		
-		res.status(201).send(JSON.stringify(data));	
+//wating for authentication
+app.post('/login', (req, res) => {
+	res.status(201).send(JSON.stringify(data));	
 })
 
-request.post('/signup', (req, res) => {
+app.post('/signup', (req, res) => {
 	postUser(req.body, (bool) => {
 		res.status(201).send(JSON.stringify(bool));	
 	})	
 })
 
-request.post('/test', (req, res) => {
+app.post('/test', (req, res) => {
 	db.postTestResults(req.body.username, req.body.results);
 })	
 
-request.post('/message', (req, res) => {
+app.post('/message', (req, res) => {
 	db.postMessage(req.body.sender, req.body.receiver, req.body.message);	
 })	
 
-request.post('/matches', (req, res) => {
+app.post('/matches', (req, res) => {
 	db.postMatches(req.body.username, req.body.testResults);	
 })
 
 
-request.get('/matches', (req, res) => {
+app.get('/matches', (req, res) => {
 	db.getMatches(req.body.username, (matches) => {
 		res.status(200).send(JSON.stringify(matches));	
 	})
 })	
 
-request.get('/profile', (req, res) => {
+app.get('/profile', (req, res) => {
 	db.getProfile(req.body.username, (profile) => {
 		res.status(200).send(JSON.stringify(profile));	
 	})
 })		
 	
-request.get('/message', (req, res) => {
+app.get('/message', (req, res) => {
 	db.getMessages(req.body.user, (messageObj) =>{
 		res.status(200).send(JSON.stringify(messageObj));	
 	})

@@ -1,6 +1,7 @@
-var expect = require( 'chai' ).expect;
+const Database = require( '../../database-mongo/index.js' );
 var httpMocks = require( 'node-mocks-http' );
 var cookies = require( './cookies.js' );
+var expect = require( 'chai' ).expect;
 
 describe( 'Sessions', () => {
   it( 'should bake random cookies', () => {
@@ -58,24 +59,42 @@ describe( 'Sessions', () => {
     } );
   } );
 
-  xit ( 'should retrieve sessions given valid cookies', () => {
-    var requestWithoutCookies = httpMocks.createRequest();
-    var response = httpMocks.createResponse();
+  it ( 'should retrieve sessions given valid cookies', () => {
+    var cookie = cookies.bakeCookies();
+    var user =  {
+      username: 'username',
+      password: 'password',
+      fullname: 'fullname',
+      email: 'email',
+      location: 'location',
+    };
 
-    cookies.createSession( requestWithoutCookies, response, () => {
-      var requestWithCookies = httpMocks.createRequest();
-      var response = httpMocks.createResponse();
+    Database.clear( () => {
+      Database.postUser( user, cookie, () => {
+        var requestWithCookies = httpMocks.createRequest(
+          { headers: { Cookie: 'hotate=aCookie; takoyaki=' +  cookie + '; tamago=cCookie' } }
+        );
+        var response = httpMocks.createResponse();
 
-      requestWithCookies.cookies = { takoyaki: requestWithoutCookies.session.cookie };
-      //Upgrade a session with a username
-
-      cookies.createSession( requestWithCookies, response, () => {
-        expect( requestWithCookies.session.cookie ).to.eql( requestWithoutCookies.session.cookie );
+        cookies.parseCookies( requestWithCookies, () => {
+          cookies.createSession( requestWithCookies, response, () => {
+            Database.clear( () => {
+              expect( requestWithCookies.session.username ).to.equal( 'username' );
+            } );
+          } );
+        } );
       } );
     } );
   } );
 
-  xit( 'should verify sessions', () => {
-    console.log( 'IN PROGRESS' );
+  it( 'should verify sessions', () => {
+    var requestWithoutCookies  = httpMocks.createRequest();
+    var response = httpMocks.createResponse();
+
+    cookies.createSession( requestWithoutCookies, response, () => {
+      cookies.verifySession( requestWithoutCookies, response, ()  => {
+        expect( true ).to.equal( false );
+      } );
+    } );
   } );
 } );

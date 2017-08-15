@@ -65,6 +65,11 @@ app.get('/message', (req, res) => {
 	})
 })	
 
+//keep this at last
+//redirects 404 to index.html
+app.all('*', (req, res) => {
+	res.redirect('/')
+})	
 
 app.listen( 8080, function() {
   console.log( 'listening on port 8080!' );

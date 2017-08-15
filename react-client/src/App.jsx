@@ -5,6 +5,7 @@ import Main from './main.jsx';
 const App = () => {
   return ( 
 	  <div>
+	    <h1>Welcome to the FriendZone</h1>
 	    <Header />
 	    <Main />
 	  </div>

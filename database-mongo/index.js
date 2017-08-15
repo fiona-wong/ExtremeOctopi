@@ -262,13 +262,13 @@ module.exports.getHash = getHash;
 module.exports.getProfile = getProfile;
 module.exports.getMatches = getMatches;
 module.exports.getMessages = getMessages;
+module.exports.getCookieUser = getCookieUser;
 module.exports.postUser = postUser;
 module.exports.postCookie = postCookie;
 module.exports.postTestResults = postTestResults;
 module.exports.postMessage = postMessage;
 module.exports.postMatches = postMatches;
 module.exports.clear = clear;
-
 
 
 

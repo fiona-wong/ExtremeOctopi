@@ -2,6 +2,9 @@ const crypto = require( 'crypto' );
 const Promise = require( 'bluebird' );
 const Database = require( '../../database-mongo/index.js' );
 
+const getCookie = Database.getCookieUser;
+const setCookie = Database.postCookie;
+
 exports.bakeCookies = ( bytes = 32, algorithm = 'sha256' ) => {
   var randomString = crypto.randomBytes( bytes ).toString( 'hex' );
   var hash = crypto.createHash( algorithm );
@@ -36,7 +39,7 @@ exports.createSession = ( req, res, next ) => {
       throw cookie;
     }
 
-    return Database.getCookie( cookie );
+    return getCookie( cookie );
   } )
   .tap( ( session ) => {
     if ( !session.username ) {
@@ -50,9 +53,9 @@ exports.createSession = ( req, res, next ) => {
   .catch( ( error ) => {
     var cookie = this.bakeCookies();
     
-    Database.setCookie( cookie );
+    setCookie( cookie );
 
-    req.session = {};
+    req.session = { cookie: cookie };
     res.cookie( 'takoyaki', cookie );
 
     next();

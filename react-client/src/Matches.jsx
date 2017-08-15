@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import EditProfile from './components/EditProfile.jsx';
+import MatchesList from './components/MatchesList.jsx';
 
 
 class Matches extends React.Component {
@@ -12,8 +13,9 @@ class Matches extends React.Component {
       name: '',
       hobbies: '',
       aboutme: '',
-      matches: []
+      matches: [1,2,3,4,5,6,7,8,9,10]
     };
+
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -46,9 +48,11 @@ class Matches extends React.Component {
 
   handleChange (event) {
     event.preventDefault();
+    const target = event.target;
+    const name = target.name;
     this.setState({
-      [name]: event.target.value
-    })
+      [name]: target.value
+    });
   }
 
 
@@ -57,6 +61,8 @@ class Matches extends React.Component {
     return (
       <div>
         <EditProfile handleChange={this.handleChange}/>
+        <MatchesList matches={this.state.matches}/>
+        <button>Click for Messages!</button>
       </div>
     )
   }

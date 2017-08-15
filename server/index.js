@@ -17,7 +17,7 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/signup', (req, res) => {
-	postUser(req.body, (bool) => {
+	db.postUser(req.body, (bool) => {
 		res.status(201).send(JSON.stringify(bool));	
 	})	
 })

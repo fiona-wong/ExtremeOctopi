@@ -346,6 +346,7 @@ var getProfile = function (user, callback) {
     if (doc) {
       callback(doc);
     } else {
+      callback();
       console.log('User not found');
     }
   })
@@ -358,7 +359,8 @@ var getFriends = function (user, callback) {
       callback(matches);
 
     } else {
-      console.log('Friends not found');
+      console.log('User not found');
+      callback(null);
     }
   })
 };
@@ -441,6 +443,7 @@ var postTestResults = function (user, results, callback) {
           })
         });
     } else {
+      callback();
       console.log('User not found in postTestResults');
     }
   })
@@ -551,6 +554,7 @@ var postGetMatches = function (user, numberToReturn, maxFriends, callback) {
       }
     )
   })
+  callback();
 };
 
 

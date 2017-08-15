@@ -93,6 +93,7 @@ var getProfile = function(user, callback) {
     if(doc) {
       callback(doc);
     } else {
+      callback();
       console.log('User not found');
     }
   })
@@ -109,6 +110,7 @@ var getMatches = function(user, callback) {
       callback(results);
 
     } else {
+      callback();
       console.log('User not found');
     }
   })
@@ -192,6 +194,7 @@ var postTestResults = function(user, results, callback) {
           })
         });
     } else {
+      callback();
       console.log('User not found in postTestResults');
     }
   })
@@ -246,6 +249,7 @@ var postMatches = function(user1, userResults, callback) {
       }
     })
   })
+  callback();
 }
 
 var clear = (callback) => {

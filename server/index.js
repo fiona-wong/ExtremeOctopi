@@ -1,4 +1,3 @@
-
 var db = require( '../database-mongo' );
 var bodyParser = require( 'body-parser' );
 var express = require( 'express' );

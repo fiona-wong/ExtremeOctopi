@@ -152,7 +152,7 @@ describe('testing matches get request', () => {
 
   it('send a 200 status code and a json stringified matches', (done) => {
 
-    //db.clear(() => {
+    db.clear(() => {
       db.postUser(user1, 'user1Cookie', () => {
         db.postUser(user2, 'user2Cookie', () => {
           db.postTestResults(user1.username, 'infp', () => {
@@ -161,39 +161,38 @@ describe('testing matches get request', () => {
           })          
         })
       })
-    //})
-    request.get('http://127.0.0.1:8080/matches', (err, res, body) => {
-      console.log('*****************error: ', err);
-      console.log('*****************res.statusCode: ', res.statusCode);
-      console.log('*****************body: ', body);
-      //expect(res.statusCode).to.equal(200);
-      done();
+      request.get('http://127.0.0.1:8080/matches', (err, res, body) => {
+        console.log('*****************error: ', err);
+        console.log('*****************res.statusCode: ', res.statusCode);
+        console.log('*****************body: ', body);
+        expect(res.statusCode).to.equal(200);
+        done();
+      })
     })
   })
 })
-// describe('matches', () => {
 
-//   it('send a response with the matching profiles', () => {
+describe('testing message get request', () => {
 
-    
-//     db.clear(() => {
-//       db.postUser(user1, user1.cookies, () => {
-//         console.log('body');
-//         expect(0).to.equal(1);
-//         db.postUser(user2, user2.cookies, () => {
-//           db.postTestResults('Andy', 20, () => {
-//             db.postTestResults('Lara', 20, () => {
-              
-//               request.get('http://127.0.0.1:8080/matches', (err, res, body) => {
-//                 console.log('body');
-//                 expect(0).to.equal(1);
-//               })
-//             })
-//           })
-//         })
-//       });
-//     });   
-//   })
-// })
+  it('send a 200 status code and a json stringified message', (done) => {
+
+    db.clear(() => {
+      db.postUser(user1, 'user1Cookie', () => {
+        db.postUser(user2, 'user2Cookie', () => {
+          db.postMessage(user1.username, user2.username, 'test user1 text user2', () => {  
+          })          
+        })
+      })
+      request.get('http://127.0.0.1:8080/message', (err, res, body) => {
+        console.log('*****************error: ', err);
+        console.log('*****************res.statusCode: ', res.statusCode);
+        console.log('*****************body: ', body);
+        expect(res.statusCode).to.equal(200);
+        done();
+      })
+    })
+  })
+})
+
 
 db.clear(() => {});

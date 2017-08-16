@@ -162,7 +162,7 @@ describe('testing matches get request', () => {
             })  
           })          
         })
-      })
+      });
 
       request.get('http://127.0.0.1:8080/matches', (err, res, body) => {
         console.log('*****************error: ', err);
@@ -173,7 +173,7 @@ describe('testing matches get request', () => {
       })
     })
   })
-})
+});
 
 describe('testing message get request', () => {
 

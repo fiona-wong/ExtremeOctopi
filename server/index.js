@@ -23,8 +23,8 @@ app.post('/test', (req, res) => {
 })	
 
 app.post('/matches', (req, res) => {
-	db.postMatches(req.body.username, req.body.testResults, () => {
-		res.status(201).end();	
+	db.postGetMatches(req.body.username, req.body.numberToReturn, req.body.limit, req.body.testResults, (results) => {
+		res.status(201).send(results);
 	});	
 })
 
@@ -41,14 +41,14 @@ app.get('/profile', (req, res) => {
 })		
 
 app.get('/matches', (req, res) => {
-	db.getMatches(req.body.username, (matches) => {
+	db.getFriends(req.body.username, (matches) => {
 		res.status(200).send(JSON.stringify(matches));	
 	})
 })	
 
 	
 app.get('/message', (req, res) => {
-	db.getMessages(req.body.user, (messageObj) =>{
+	db.getMessages(req.body.username, (messageObj) =>{
 		res.status(200).send(JSON.stringify(messageObj));	
 	})
 })	

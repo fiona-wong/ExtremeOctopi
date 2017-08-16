@@ -539,7 +539,7 @@ var postRemoveFriend = function (user1, user2, callback) {
 var postGetMatches = function (user, numberToReturn, maxFriends, callback) {
   Test.find({username: user, alreadyMatches: false}).sort('-compatability').exec(function (err, users) {
     var results = [];
-    async.forEach(users, function (match, iterate_callback) {
+    async.eachSeries(users, function (match, iterate_callback) {
         Test.count({username: match.match, currentlyFriends: false}, function (err, count) {
           if (count <= maxFriends && results.length < numberToReturn) {
             results.push(match);
@@ -554,8 +554,7 @@ var postGetMatches = function (user, numberToReturn, maxFriends, callback) {
         callback(results);
       }
     )
-  })
-  callback();
+  });
 };
 
 
@@ -580,6 +579,7 @@ module.exports.postTestResults = postTestResults;
 module.exports.postMessage = postMessage;
 module.exports.postMatches = postMatches;
 module.exports.postGetMatches = postGetMatches;
+module.exports.postRemoveFriend = postRemoveFriend;
 
 
 module.exports.clear = clear;

@@ -8,7 +8,6 @@ app.use( express.static( __dirname + '/../react-client/dist' ) );
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded({extended: true}) );
 
-
 app.post('/login', (req, res) => {	
 		res.status(201).end();	
 })
@@ -34,12 +33,6 @@ app.post('/message', (req, res) => {
 		res.status(201).end();	
 	});	
 })
-
-app.get('/matches', (req, res) => {
-	db.getMatches(req.body.username, (matches) => {
-		res.status(200).send(JSON.stringify(matches));	
-	})
-})	
 
 app.get('/profile', (req, res) => {
 	db.getProfile(req.body.username, (profile) => {
@@ -69,6 +62,7 @@ app.all('*', (req, res) => {
 app.listen( 8080, function() {
   console.log( 'listening on port 8080!' );
 });
+
 
 
 module.exports = app;

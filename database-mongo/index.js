@@ -359,6 +359,7 @@ var getFriends = function (user, callback) {
       callback(matches);
 
     } else {
+      callback();
       console.log('User not found');
       callback(null);
     }

@@ -50,11 +50,40 @@ class Signup extends React.Component {
 
   render () {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <div className="wrapper">
+        <form className="form-signin" onSubmit={this.handleSubmit}>
+        <br />
+        <label>
+          Full Name:
+          <input
+            size="35"
+            className="form-control"
+            required=""
+            autoFocus=""          
+            name="fullname"
+            type="text"
+            onChange={this.handleInputChange} />
+        </label>
+        <br />
+        <label>
+          E-mail:
+          <input
+            size="35"
+            className="form-control"
+            required=""
+            autoFocus=""          
+            name="email"
+            type="text"
+            onChange={this.handleInputChange} />
+        </label>
+        <br />
         <label>
           Username:
           <input
+            size="35"
+            className="form-control"
+            required=""
+            autoFocus=""
             name="username"
             type="text"
             onChange={this.handleInputChange} />
@@ -63,29 +92,18 @@ class Signup extends React.Component {
         <label>
           Password:
           <input
+            size="35"
+            className="form-control"
+            required=""
+            autoFocus=""          
             name="password"
             type="password"
             onChange={this.handleInputChange} />
         </label>
         <br />
-        <label>
-          E-mail:
-          <input
-            name="email"
-            type="text"
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Full Name:
-          <input
-            name="fullname"
-            type="text"
-            onChange={this.handleInputChange} />
-        </label>
         <br />
         <br />
-        <button>Submit</button>
+        <button className="button btn btn-lg btn-primary btn-block" type="submit">Sign Me Up!</button>
       </form>
       </div>
 

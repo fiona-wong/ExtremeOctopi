@@ -3,20 +3,25 @@ import { Link } from 'react-router-dom';
 
 
 const Header = () => (
-	<header>
-  <nav>
-  <div>
-  <ul>
-    <li><Link to='/Signup'>Signup</Link></li>
-    <li><Link to='/Test'>Test</Link></li>
-    <li><Link to='/Login'>Login</Link></li>
-    <li><Link to='/Profile'>Profile</Link></li>
-    <li><Link to='/Matches'>Matches</Link></li>
-    <li><Link to='/Messages'>Messages</Link></li>
+
+  <nav className="navbar navbar-inverse">
+  <div className="container-fluid">
+  <div className="navbar-header">
+  <a className="navbar-brand" href="#"><img src="logo.png" width="70" height="70" className="d-inline-block align-top" alt=""/></a>
+
+  </div>
+  <ul className="nav navbar-nav">
+    <li className="nav-item"><Link to='/Signup'>Signup</Link></li>
+    <li className="nav-item"><Link to='/Test'>Test</Link></li>
+    <li className="nav-item"><Link to='/Login'>Login</Link></li>
+    <li className="nav-item"><Link to='/Profile'>Profile</Link></li>
+    <li className="nav-item"><Link to='/Matches'>Matches</Link></li>
+    <li className="nav-item"><Link to='/Messages'>Messages</Link></li>
   </ul>
   </div>
   </nav>
-  </header>
+
+
 )
 
 export default Header

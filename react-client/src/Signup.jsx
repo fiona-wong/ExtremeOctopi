@@ -66,6 +66,18 @@ class Signup extends React.Component {
         </label>
         <br />
         <label>
+          E-mail:
+          <input
+            size="35"
+            className="form-control"
+            required=""
+            autoFocus=""          
+            name="email"
+            type="text"
+            onChange={this.handleInputChange} />
+        </label>
+        <br />
+        <label>
           Username:
           <input
             size="35"
@@ -89,17 +101,6 @@ class Signup extends React.Component {
             onChange={this.handleInputChange} />
         </label>
         <br />
-        <label>
-          E-mail:
-          <input
-            size="35"
-            className="form-control"
-            required=""
-            autoFocus=""          
-            name="email"
-            type="text"
-            onChange={this.handleInputChange} />
-        </label>
         <br />
         <br />
         <button className="button btn btn-lg btn-primary btn-block" type="submit">Sign Me Up!</button>

@@ -1,5 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import $ from 'jquery';
+
 
 const EditProfile = (props) => (
   <div>

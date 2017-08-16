@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 var async = require('async');
-
+var Schema = mongoose.Schema;
 mongoose.connect('mongodb://localhost/test');
 
 var db = mongoose.connection;
@@ -287,6 +286,7 @@ var mbti = {
   }
 };
 
+
 var userSchema = mongoose.Schema({
   username: String,
   password: String,
@@ -320,21 +320,25 @@ var User = mongoose.model('User', userSchema);
 var Message = mongoose.model('Message', messageSchema);
 var Test = mongoose.model('Test', testResultsSchema);
 
+
 // user = username, callback = hash, callback = return password or null if pw not present
 var getHash = function (user, callback) {
   User.findOne({username: user}, function (err, doc) {
     if (doc) {
       callback(doc.password);
     } else {
-      console.log( 'User not found' );
+      console.log('null')
       callback(null);
     }
-  });
+  })
 };
+
 
 //user = username
 var removeCookie = function (user) {
+
 };
+
 
 // user = username, callback = full User row
 var getProfile = function (user, callback) {
@@ -345,7 +349,7 @@ var getProfile = function (user, callback) {
       callback();
       console.log('User not found');
     }
-  });
+  })
 };
 
 // user = username, callback = matches for that user
@@ -353,17 +357,18 @@ var getFriends = function (user, callback) {
   Test.find({username: user, currentlyFriends: true}, function (err, matches) {
     if (matches) {
       callback(matches);
+
     } else {
       callback();
       console.log('User not found');
+      callback(null);
     }
-  });
+  })
 };
 
 // user = username, callback = {sent: messages sent by user, received: messages received by user}
 var getMessages = function (user, callback) {
   var results = {sent: [], received: []};
-
   Message.find({sender: user}, function (err, sent) {
     results.sent = sent.slice();
 
@@ -371,32 +376,34 @@ var getMessages = function (user, callback) {
       results.received = received.slice();
 
       callback(results);
-    });
-  });
+    })
+
+  })
 };
 
 var getCookieUser = function (cookie) {
-  User.find({cookies: cookie}, (matches) => {
-    if (matches) {
-      return {username: matches.username, cookies: cookie};
+  User.find({cookies: cookies}, (matches) => {
+    if (matches.length > 0) {
+      callback({username: matches.username});
+      return {username: matches.username};
     } else {
+      callback({});
       return {};
     }
-  });
+  })
 };
+
 
 // userInfo = {username, password, fullname, email, location, cookies},
 // callback = false: user already exists - true: user created successfully
 var postUser = function (userInfo, cookie, callback) {
   User.findOne({username: userInfo.username}, (err, doc) => {
     if (doc) {
-      console.log( 'User already exists' );
+      console.log('User already exists');
       callback(false);
     } else {
-      User.update(
-        {
-          cookies: cookie
-        },
+
+      User.update({cookies: cookie},
         {
           $set: {
             username: userInfo.username,
@@ -405,30 +412,26 @@ var postUser = function (userInfo, cookie, callback) {
             email: userInfo.email,
             location: userInfo.location
           }
-        },
-        {
-          upsert: true
-        },
-        (err, user) => callback(true)
-      );
+        }, {upsert: true}, (err, user) => callback(true));
     }
-  });
+  })
 };
 
 // TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!
 var postCookie = function (cookie, callback) {
   User.find({cookies: cookie}, function (err, doc) {
     if (doc) {
+      callback(false);
       return false;
     } else {
       var user = new User({cookies: cookie});
-
       user.save();
-
+      callback(true);
       return true;
     }
-  });
+  })
 };
+
 
 // user = username, results = type
 var postTestResults = function (user, results, callback) {
@@ -441,8 +444,8 @@ var postTestResults = function (user, results, callback) {
           })
         });
     } else {
-      console.log('User not found');
       callback();
+      console.log('User not found in postTestResults');
     }
   })
 };
@@ -555,6 +558,7 @@ var postGetMatches = function (user, numberToReturn, maxFriends, callback) {
   callback();
 };
 
+
 var clear = (callback) => {
   User.remove({}, () => {
     Message.remove({}, () => {
@@ -576,4 +580,13 @@ module.exports.postTestResults = postTestResults;
 module.exports.postMessage = postMessage;
 module.exports.postMatches = postMatches;
 module.exports.postGetMatches = postGetMatches;
+
+
 module.exports.clear = clear;
+
+
+
+
+
+
+

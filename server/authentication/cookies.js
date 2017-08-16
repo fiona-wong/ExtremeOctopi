@@ -14,14 +14,13 @@ exports.bakeCookies = ( bytes = 32, algorithm = 'sha256' ) => {
   return hash.digest( 'hex' );
 };
 
-exports.parseCookies = ( req, res, next ) => {
+exports.parseCookies = ( req, next ) => {
   var cookieString = req.get( 'Cookie' );
-    
-  req.cookies = req.cookies || {};
 
   if ( cookieString ) {
     var cookies = cookieString.split( '; ' );
 
+    req.cookies = req.cookies || {};
 
     for ( var i = 0; i !== cookies.length; i++ ) {
       var cookie = cookies[ i ].split( '=' );

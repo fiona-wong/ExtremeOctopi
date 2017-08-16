@@ -1,6 +1,6 @@
-import React from 'react';
 import $ from "jquery";
-
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Test extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Test extends React.Component {
   	e.preventDefault();
   	var personality = e.target.personalityTest.value;
   	$.post('/test', (data) => {
-  		window.location = "/Matches";
+  		window.location = "/profile";
   	})
   }
 

@@ -1,0 +1,17 @@
+{
+infp:{infp:30,enfp:30,infj:30,enfj:40,intj:30,entj:40,intp:30,entp:30,isfp:0,esfp:0,istp:0,estp:0,isfj:0,esfj:0,istj:0,estj:0},
+enfp:{infp:30,enfp:30,infj:40,enfj:30,intj:40,entj:30,intp:30,entp:30,isfp:0,esfp:0,istp:0,estp:0,isfj:0,esfj:0,istj:0,estj:0},
+infj:{infp:30,enfp:40,infj:30,enfj:30,intj:30,entj:30,intp:30,entp:40,isfp:0,esfp:0,istp:0,estp:0,isfj:0,esfj:0,istj:0,estj:0},
+enfj:{infp:40,enfp:30,infj:30,enfj:30,intj:30,entj:30,intp:30,entp:30,isfp:40,esfp:0,istp:0,estp:0,isfj:0,esfj:0,istj:0,estj:0},
+intj:{infp:30,enfp:40,infj:30,enfj:30,intj:30,entj:30,intp:30,entp:40,isfp:20,esfp:20,istp:20,estp:20,isfj:10,esfj:10,istj:10,estj:10},
+entj:{infp:40,enfp:30,infj:30,enfj:30,intj:30,entj:30,intp:40,entp:30,isfp:20,esfp:20,istp:20,estp:20,isfj:20,esfj:20,istj:20,estj:20},
+intp:{infp:30,enfp:30,infj:30,enfj:30,intj:30,entj:40,intp:30,entp:30,isfp:20,esfp:20,istp:20,estp:20,isfj:10,esfj:10,istj:10,estj:40},
+isfp:{infp:0,enfp:0,infj:0,enfj:40,intj:20,entj:20,intp:20,entp:20,isfp:10,esfp:10,istp:10,estp:10,isfj:20,esfj:40,istj:20,estj:40},
+esfp:{infp:0,enfp:0,infj:0,enfj:0,intj:20,entj:20,intp:20,entp:20,isfp:10,esfp:10,istp:10,estp:10,isfj:40,esfj:20,istj:40,estj:20},
+istp:{infp:0,enfp:0,infj:0,enfj:40,intj:20,entj:20,intp:20,entp:20,isfp:10,esfp:10,istp:10,estp:10,isfj:20,esfj:40,istj:20,estj:40},
+estp:{infp:0,enfp:0,infj:0,enfj:40,intj:20,entj:20,intp:20,entp:20,isfp:10,esfp:10,istp:10,estp:10,isfj:40,esfj:20,istj:40,estj:30},
+isfj:{infp:0,enfp:0,infj:0,enfj:40,intj:10,entj:20,intp:10,entp:10,isfp:20,esfp:40,istp:20,estp:40,isfj:30,esfj:30,istj:30,estj:30},
+esfj:{infp:0,enfp:0,infj:0,enfj:40,intj:10,entj:20,intp:10,entp:10,isfp:40,esfp:30,istp:40,estp:20,isfj:30,esfj:30,istj:30,estj:30},
+istj:{infp:0,enfp:0,infj:0,enfj:40,intj:10,entj:20,intp:10,entp:10,isfp:20,esfp:40,istp:20,estp:40,isfj:30,esfj:30,istj:30,estj:30},
+estj:{infp:0,enfp:0,infj:0,enfj:40,intj:10,entj:20,intp:40,entp:10,isfp:20,esfp:40,istp:20,estp:40,isfj:30,esfj:30,istj:30,estj:30}
+}

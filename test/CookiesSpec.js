@@ -17,9 +17,8 @@ describe( 'Sessions', () => {
     var requestWithCookies = httpMocks.createRequest(
       { headers: { Cookie: 'hotate=aCookie; takoyaki=bCookie; tamago=cCookie' } }
     );
-    var response = httpMocks.createResponse();
 
-    cookies.parseCookies( requestWithoutCookies, response, () => {
+    cookies.parseCookies( requestWithoutCookies, () => {
       var cookies = requestWithoutCookies.cookies;
       var expectedCookies = {};
 
@@ -27,7 +26,7 @@ describe( 'Sessions', () => {
       expect( cookies ).to.eql( expectedCookies );
     } );
 
-    cookies.parseCookies( requestWithCookies, response, () => {
+    cookies.parseCookies( requestWithCookies, () => {
       var cookies = requestWithCookies.cookies;
       var expectedCookies = { hotate: 'aCookie', takoyaki: 'bCookie', tamago: 'cCookie' };
 
@@ -52,7 +51,7 @@ describe( 'Sessions', () => {
     );
     var response = httpMocks.createResponse();
 
-    cookies.parseCookies( requestWithCookies, response, () => {
+    cookies.parseCookies( requestWithCookies, () => {
       cookies.createSession( requestWithCookies, response, () => {
         expect( requestWithCookies.session.cookie ).to.exist;
         expect( response.cookies.takoyaki.value ).to.exist;
@@ -77,7 +76,7 @@ describe( 'Sessions', () => {
         );
         var response = httpMocks.createResponse();
 
-        cookies.parseCookies( requestWithCookies, response, () => {
+        cookies.parseCookies( requestWithCookies, () => {
           cookies.createSession( requestWithCookies, response, () => {
             Database.clear( () => {
               expect( requestWithCookies.session.username ).to.equal( 'username' );

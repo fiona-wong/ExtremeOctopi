@@ -1,12 +1,11 @@
-import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Signup from './Signup.jsx';
-import Test from './test';
-import Login from './Login.jsx';
 import Profile from './Profile.jsx';
 import Matches from './Matches.jsx';
 import Messages from './messages';
-
+import Signup from './Signup.jsx';
+import Login from './Login.jsx';
+import React from 'react';
+import Test from './test';
 
 const Main = () => (
   <main>

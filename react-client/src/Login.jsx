@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import $ from 'jquery';
-
 
 class Login extends React.Component {
   constructor(props) {

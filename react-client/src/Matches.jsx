@@ -1,9 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
 import EditProfile from './components/EditProfile.jsx';
 import MatchesList from './components/MatchesList.jsx';
-
+import React from 'react';
+import $ from 'jquery';
 
 class Matches extends React.Component {
   constructor(props) {

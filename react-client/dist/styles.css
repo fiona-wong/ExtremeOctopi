@@ -1,6 +1,8 @@
 body {
 	background: #FFF3E3 !important;
 	color: #262B53;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	position: relative;
 }
 
 .wrapper {	

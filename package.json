@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": ">=6.4.0"
+    "node": "^6.4.0"
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js"
+    "server-dev": "nodemon server/index.js",
+    "test": "live-server --open=./SpecRunner.html --port=8081"
   },
   "author": "Beth Johnson",
   "license": "ISC",
@@ -26,6 +27,9 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.0",
+    "babel": "^6.23.0",
+    "flexbox-react": "^4.4.0",
+    "flexboxgrid": "^6.3.1",
     "jquery": "^3.1.1",
     "mongoose": "^4.8.6",
     "react": "^15.6.1",

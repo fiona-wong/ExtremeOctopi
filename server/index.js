@@ -12,47 +12,46 @@ app.use( express.static( __dirname + '/../react-client/dist' ) );
 
 
 //wating for authentication
-// request.post('/login', (req, res) => {
-		
-// 		res.status(201).send(JSON.stringify(data));	
-// })
+app.post('/login', (req, res) => {
+	res.status(201).send(JSON.stringify(data));	
+})
 
-// request.post('/signup', (req, res) => {
-// 	postUser(req.body, (bool) => {
-// 		res.status(201).send(JSON.stringify(bool));	
-// 	})	
-// })
+app.post('/signup', (req, res) => {
+	db.postUser(req.body, (bool) => {
+		res.status(201).send(JSON.stringify(bool));	
+	})	
+})
 
-// request.post('/test', (req, res) => {
-// 	db.postTestResults(req.body.username, req.body.results);
-// })	
+app.post('/test', (req, res) => {
+	db.postTestResults(req.body.username, req.body.results);
+})	
 
-// request.post('/message', (req, res) => {
-// 	db.postMessage(req.body.sender, req.body.receiver, req.body.message);	
-// })	
+app.post('/message', (req, res) => {
+	db.postMessage(req.body.sender, req.body.receiver, req.body.message);	
+})	
 
-// request.post('/matches', (req, res) => {
-// 	db.postMatches(req.body.username, req.body.testResults);	
-// })
+app.post('/matches', (req, res) => {
+	db.postMatches(req.body.username, req.body.testResults);	
+})
 
 
-// request.get('/matches', (req, res) => {
-// 	db.getMatches(req.body.username, (matches) => {
-// 		res.status(200).send(JSON.stringify(matches));	
-// 	})
-// })	
+app.get('/matches', (req, res) => {
+	db.getMatches(req.body.username, (matches) => {
+		res.status(200).send(JSON.stringify(matches));	
+	})
+})	
 
-// request.get('/profile', (req, res) => {
-// 	db.getProfile(req.body.username, (profile) => {
-// 		res.status(200).send(JSON.stringify(profile));	
-// 	})
-// })		
+app.get('/profile', (req, res) => {
+	db.getProfile(req.body.username, (profile) => {
+		res.status(200).send(JSON.stringify(profile));	
+	})
+})		
 	
-// request.get('/message', (req, res) => {
-// 	db.getMessages(req.body.user, (messageObj) =>{
-// 		res.status(200).send(JSON.stringify(messageObj));	
-// 	})
-// })	
+app.get('/message', (req, res) => {
+	db.getMessages(req.body.user, (messageObj) =>{
+		res.status(200).send(JSON.stringify(messageObj));	
+	})
+})	
 
 
 app.listen( 3000, function() {

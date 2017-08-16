@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './header';
-import Main from './main';
+import Header from './header.jsx';
+import Main from './main.jsx';
 
 const App = () => {
   return ( 

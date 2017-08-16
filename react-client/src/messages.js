@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 import React from 'react';
 import $ from 'jquery';
 
@@ -24,7 +23,7 @@ class Messages extends React.Component {
       success: ( data ) => {
         console.log( 'SUCCESS:', data );
 
-        this.setState( { messages: data } );
+        this.setState( { messages: JSON.parse( data ).received } );
       },
       error: ( error ) => {
         console.log( 'ERROR:', error );

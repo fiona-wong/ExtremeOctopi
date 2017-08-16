@@ -56,7 +56,7 @@ app.get('/profile', (req, res) => {
 })
 
 app.get('/matches', (req, res) => {
-	db.getMatches(req.body.username, (matches) => {
+	db.getFriends(req.body.username, (matches) => {
 		res.status(200).send(JSON.stringify(matches));
 	})
 })

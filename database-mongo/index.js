@@ -326,6 +326,7 @@ var getHash = function (user, callback) {
     if (doc) {
       callback(doc.password);
     } else {
+      console.log( 'User not found' );
       callback(null);
     }
   });
@@ -333,7 +334,6 @@ var getHash = function (user, callback) {
 
 //user = username
 var removeCookie = function (user) {
-
 };
 
 // user = username, callback = full User row
@@ -342,7 +342,7 @@ var getProfile = function (user, callback) {
     if (doc) {
       callback(doc);
     } else {
-      console.log('User not found');
+      console.log( 'User not found' );
       callback(null);
     }
   });
@@ -354,7 +354,7 @@ var getFriends = function (user, callback) {
     if (matches) {
       callback(matches);
     } else {
-      console.log('User not found');
+      console.log( 'User not found' );
       callback(null);
     }
   });
@@ -376,14 +376,10 @@ var getMessages = function (user, callback) {
 };
 
 var getCookieUser = function (cookie) {
-  User.find({cookies: cookies}, (matches) => {
-    if (matches.length > 0) {
-      //callback({username: matches.username});
-
-      return {username: matches.username};
+  User.find({cookies: cookie}, (matches) => {
+    if (matches) {
+      return {username: matches.username, cookies: cookie};
     } else {
-      //callback({});
-
       return {};
     }
   });
@@ -394,10 +390,13 @@ var getCookieUser = function (cookie) {
 var postUser = function (userInfo, cookie, callback) {
   User.findOne({username: userInfo.username}, (err, doc) => {
     if (doc) {
-      console.log('User already exists');
+      console.log( 'User already exists' );
       callback(false);
     } else {
-      User.update({cookies: cookie},
+      User.update(
+        {
+          cookies: cookie
+        },
         {
           $set: {
             username: userInfo.username,
@@ -406,7 +405,12 @@ var postUser = function (userInfo, cookie, callback) {
             email: userInfo.email,
             location: userInfo.location
           }
-        }, {upsert: true}, (err, user) => callback(true));
+        },
+        {
+          upsert: true
+        },
+        (err, user) => callback(true)
+      );
     }
   });
 };
@@ -415,20 +419,16 @@ var postUser = function (userInfo, cookie, callback) {
 var postCookie = function (cookie, callback) {
   User.find({cookies: cookie}, function (err, doc) {
     if (doc) {
-      //callback(false);
-
       return false;
     } else {
       var user = new User({cookies: cookie});
 
       user.save();
-      //callback(true);
 
       return true;
     }
   });
 };
-
 
 // user = username, results = type
 var postTestResults = function (user, results, callback) {
@@ -441,8 +441,8 @@ var postTestResults = function (user, results, callback) {
           })
         });
     } else {
-      callback();
-      console.log('User not found in postTestResults');
+      console.log('User not found');
+      callback(null);
     }
   })
 };
@@ -576,6 +576,4 @@ module.exports.postTestResults = postTestResults;
 module.exports.postMessage = postMessage;
 module.exports.postMatches = postMatches;
 module.exports.postGetMatches = postGetMatches;
-
-
 module.exports.clear = clear;

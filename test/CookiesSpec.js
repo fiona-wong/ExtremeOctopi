@@ -1,6 +1,6 @@
-const Database = require( '../../database-mongo/index.js' );
+const Database = require( '../database-mongo/index.js' );
 var httpMocks = require( 'node-mocks-http' );
-var cookies = require( './cookies.js' );
+var cookies = require( '../server/authentication/cookies.js' );
 var expect = require( 'chai' ).expect;
 
 describe( 'Sessions', () => {

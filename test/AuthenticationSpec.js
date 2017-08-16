@@ -1,5 +1,5 @@
 var expect = require( 'chai' ).expect;
-var authentication = require( './authentication.js' );
+var authentication = require( '../server/authentication/authentication.js' );
 
 describe( 'Password Security', () => {
   it ( 'should generate random salts', () => {

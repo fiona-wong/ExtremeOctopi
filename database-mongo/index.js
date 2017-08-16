@@ -1,35 +1,290 @@
-var mongoose = require( 'mongoose' );
+var mongoose = require('mongoose');
+var async = require('async');
 var Schema = mongoose.Schema;
-mongoose.connect( 'mongodb://localhost/test' );
+mongoose.connect('mongodb://localhost/test');
 
 var db = mongoose.connection;
 
-db.on( 'error', () => {
-  console.log( 'mongoose connection error' );
-} );
+db.on('error', () => {
+  console.log('mongoose connection error');
+});
 
-db.once( 'open', () => {
-  console.log( 'mongoose connected successfully' );
-} );
+db.once('open', () => {
+  console.log('mongoose connected successfully');
+});
 
 var mbti = {
-infp:{infp:30,enfp:30,infj:30,enfj:40,intj:30,entj:40,intp:30,entp:30,isfp:0,esfp:0,istp:0,estp:0,isfj:0,esfj:0,istj:0,estj:0},
-enfp:{infp:30,enfp:30,infj:40,enfj:30,intj:40,entj:30,intp:30,entp:30,isfp:0,esfp:0,istp:0,estp:0,isfj:0,esfj:0,istj:0,estj:0},
-infj:{infp:30,enfp:40,infj:30,enfj:30,intj:30,entj:30,intp:30,entp:40,isfp:0,esfp:0,istp:0,estp:0,isfj:0,esfj:0,istj:0,estj:0},
-enfj:{infp:40,enfp:30,infj:30,enfj:30,intj:30,entj:30,intp:30,entp:30,isfp:40,esfp:0,istp:0,estp:0,isfj:0,esfj:0,istj:0,estj:0},
-intj:{infp:30,enfp:40,infj:30,enfj:30,intj:30,entj:30,intp:30,entp:40,isfp:20,esfp:20,istp:20,estp:20,isfj:10,esfj:10,istj:10,estj:10},
-entj:{infp:40,enfp:30,infj:30,enfj:30,intj:30,entj:30,intp:40,entp:30,isfp:20,esfp:20,istp:20,estp:20,isfj:20,esfj:20,istj:20,estj:20},
-intp:{infp:30,enfp:30,infj:30,enfj:30,intj:30,entj:40,intp:30,entp:30,isfp:20,esfp:20,istp:20,estp:20,isfj:10,esfj:10,istj:10,estj:40},
-isfp:{infp:0,enfp:0,infj:0,enfj:40,intj:20,entj:20,intp:20,entp:20,isfp:10,esfp:10,istp:10,estp:10,isfj:20,esfj:40,istj:20,estj:40},
-esfp:{infp:0,enfp:0,infj:0,enfj:0,intj:20,entj:20,intp:20,entp:20,isfp:10,esfp:10,istp:10,estp:10,isfj:40,esfj:20,istj:40,estj:20},
-istp:{infp:0,enfp:0,infj:0,enfj:40,intj:20,entj:20,intp:20,entp:20,isfp:10,esfp:10,istp:10,estp:10,isfj:20,esfj:40,istj:20,estj:40},
-estp:{infp:0,enfp:0,infj:0,enfj:40,intj:20,entj:20,intp:20,entp:20,isfp:10,esfp:10,istp:10,estp:10,isfj:40,esfj:20,istj:40,estj:30},
-isfj:{infp:0,enfp:0,infj:0,enfj:40,intj:10,entj:20,intp:10,entp:10,isfp:20,esfp:40,istp:20,estp:40,isfj:30,esfj:30,istj:30,estj:30},
-esfj:{infp:0,enfp:0,infj:0,enfj:40,intj:10,entj:20,intp:10,entp:10,isfp:40,esfp:30,istp:40,estp:20,isfj:30,esfj:30,istj:30,estj:30},
-istj:{infp:0,enfp:0,infj:0,enfj:40,intj:10,entj:20,intp:10,entp:10,isfp:20,esfp:40,istp:20,estp:40,isfj:30,esfj:30,istj:30,estj:30},
-estj:{infp:0,enfp:0,infj:0,enfj:40,intj:10,entj:20,intp:40,entp:10,isfp:20,esfp:40,istp:20,estp:40,isfj:30,esfj:30,istj:30,estj:30}
+  infp: {
+    infp: 30,
+    enfp: 30,
+    infj: 30,
+    enfj: 40,
+    intj: 30,
+    entj: 40,
+    intp: 30,
+    entp: 30,
+    isfp: 0,
+    esfp: 0,
+    istp: 0,
+    estp: 0,
+    isfj: 0,
+    esfj: 0,
+    istj: 0,
+    estj: 0
+  },
+  enfp: {
+    infp: 30,
+    enfp: 30,
+    infj: 40,
+    enfj: 30,
+    intj: 40,
+    entj: 30,
+    intp: 30,
+    entp: 30,
+    isfp: 0,
+    esfp: 0,
+    istp: 0,
+    estp: 0,
+    isfj: 0,
+    esfj: 0,
+    istj: 0,
+    estj: 0
+  },
+  infj: {
+    infp: 30,
+    enfp: 40,
+    infj: 30,
+    enfj: 30,
+    intj: 30,
+    entj: 30,
+    intp: 30,
+    entp: 40,
+    isfp: 0,
+    esfp: 0,
+    istp: 0,
+    estp: 0,
+    isfj: 0,
+    esfj: 0,
+    istj: 0,
+    estj: 0
+  },
+  enfj: {
+    infp: 40,
+    enfp: 30,
+    infj: 30,
+    enfj: 30,
+    intj: 30,
+    entj: 30,
+    intp: 30,
+    entp: 30,
+    isfp: 40,
+    esfp: 0,
+    istp: 0,
+    estp: 0,
+    isfj: 0,
+    esfj: 0,
+    istj: 0,
+    estj: 0
+  },
+  intj: {
+    infp: 30,
+    enfp: 40,
+    infj: 30,
+    enfj: 30,
+    intj: 30,
+    entj: 30,
+    intp: 30,
+    entp: 40,
+    isfp: 20,
+    esfp: 20,
+    istp: 20,
+    estp: 20,
+    isfj: 10,
+    esfj: 10,
+    istj: 10,
+    estj: 10
+  },
+  entj: {
+    infp: 40,
+    enfp: 30,
+    infj: 30,
+    enfj: 30,
+    intj: 30,
+    entj: 30,
+    intp: 40,
+    entp: 30,
+    isfp: 20,
+    esfp: 20,
+    istp: 20,
+    estp: 20,
+    isfj: 20,
+    esfj: 20,
+    istj: 20,
+    estj: 20
+  },
+  intp: {
+    infp: 30,
+    enfp: 30,
+    infj: 30,
+    enfj: 30,
+    intj: 30,
+    entj: 40,
+    intp: 30,
+    entp: 30,
+    isfp: 20,
+    esfp: 20,
+    istp: 20,
+    estp: 20,
+    isfj: 10,
+    esfj: 10,
+    istj: 10,
+    estj: 40
+  },
+  isfp: {
+    infp: 0,
+    enfp: 0,
+    infj: 0,
+    enfj: 40,
+    intj: 20,
+    entj: 20,
+    intp: 20,
+    entp: 20,
+    isfp: 10,
+    esfp: 10,
+    istp: 10,
+    estp: 10,
+    isfj: 20,
+    esfj: 40,
+    istj: 20,
+    estj: 40
+  },
+  esfp: {
+    infp: 0,
+    enfp: 0,
+    infj: 0,
+    enfj: 0,
+    intj: 20,
+    entj: 20,
+    intp: 20,
+    entp: 20,
+    isfp: 10,
+    esfp: 10,
+    istp: 10,
+    estp: 10,
+    isfj: 40,
+    esfj: 20,
+    istj: 40,
+    estj: 20
+  },
+  istp: {
+    infp: 0,
+    enfp: 0,
+    infj: 0,
+    enfj: 40,
+    intj: 20,
+    entj: 20,
+    intp: 20,
+    entp: 20,
+    isfp: 10,
+    esfp: 10,
+    istp: 10,
+    estp: 10,
+    isfj: 20,
+    esfj: 40,
+    istj: 20,
+    estj: 40
+  },
+  estp: {
+    infp: 0,
+    enfp: 0,
+    infj: 0,
+    enfj: 40,
+    intj: 20,
+    entj: 20,
+    intp: 20,
+    entp: 20,
+    isfp: 10,
+    esfp: 10,
+    istp: 10,
+    estp: 10,
+    isfj: 40,
+    esfj: 20,
+    istj: 40,
+    estj: 30
+  },
+  isfj: {
+    infp: 0,
+    enfp: 0,
+    infj: 0,
+    enfj: 40,
+    intj: 10,
+    entj: 20,
+    intp: 10,
+    entp: 10,
+    isfp: 20,
+    esfp: 40,
+    istp: 20,
+    estp: 40,
+    isfj: 30,
+    esfj: 30,
+    istj: 30,
+    estj: 30
+  },
+  esfj: {
+    infp: 0,
+    enfp: 0,
+    infj: 0,
+    enfj: 40,
+    intj: 10,
+    entj: 20,
+    intp: 10,
+    entp: 10,
+    isfp: 40,
+    esfp: 30,
+    istp: 40,
+    estp: 20,
+    isfj: 30,
+    esfj: 30,
+    istj: 30,
+    estj: 30
+  },
+  istj: {
+    infp: 0,
+    enfp: 0,
+    infj: 0,
+    enfj: 40,
+    intj: 10,
+    entj: 20,
+    intp: 10,
+    entp: 10,
+    isfp: 20,
+    esfp: 40,
+    istp: 20,
+    estp: 40,
+    isfj: 30,
+    esfj: 30,
+    istj: 30,
+    estj: 30
+  },
+  estj: {
+    infp: 0,
+    enfp: 0,
+    infj: 0,
+    enfj: 40,
+    intj: 10,
+    entj: 20,
+    intp: 40,
+    entp: 10,
+    isfp: 20,
+    esfp: 40,
+    istp: 20,
+    estp: 40,
+    isfj: 30,
+    esfj: 30,
+    istj: 30,
+    estj: 30
+  }
 };
-
 
 
 var userSchema = mongoose.Schema({
@@ -43,10 +298,10 @@ var userSchema = mongoose.Schema({
   location: String,
   hobbies: String,
   blog: String,
-  img: { data: Buffer, contentType: String }
+  img: {data: Buffer, contentType: String}
 });
 
-var messageSchema= mongoose.Schema({
+var messageSchema = mongoose.Schema({
   sender: String,
   receiver: String,
   message: String,
@@ -57,81 +312,75 @@ var testResultsSchema = mongoose.Schema({
   username: String,
   match: String,
   compatability: Number,
-  alreadyMatches: Boolean
-
+  alreadyMatches: Boolean,
+  currentlyFriends: Boolean
 });
 
-var User = mongoose.model( 'User', userSchema );
+var User = mongoose.model('User', userSchema);
 var Message = mongoose.model('Message', messageSchema);
 var Test = mongoose.model('Test', testResultsSchema);
 
 
-
-
 // user = username, callback = hash, callback = return password or null if pw not present
-var getHash = function(user, callback) {
-  User.findOne({username: user}, function(err, doc){
-    if(doc) {
+var getHash = function (user, callback) {
+  User.findOne({username: user}, function (err, doc) {
+    if (doc) {
       callback(doc.password);
     } else {
       console.log('null')
       callback(null);
     }
   })
-}
+};
 
 
 //user = username
-var removeCookie = function(user) {
+var removeCookie = function (user) {
 
-}
+};
 
 
 // user = username, callback = full User row
-var getProfile = function(user, callback) {
+var getProfile = function (user, callback) {
   User.findOne({username: user}, (err, doc) => {
-    if(doc) {
+    if (doc) {
       callback(doc);
     } else {
       console.log('User not found');
     }
   })
-}
+};
 
 // user = username, callback = matches for that user
-var getMatches = function(user, callback) {
-  Test.find({username: user}, function(err, matches) {
-    if(matches) {
-      var results = matches.map( (match) => {
-        return {compatability: match.compatability, match: match.match};
-      });
-
-      callback(results);
+var getFriends = function (user, callback) {
+  Test.find({username: user, currentlyFriends: true}, function (err, matches) {
+    if (matches) {
+      callback(matches);
 
     } else {
-      console.log('User not found');
+      console.log('Friends not found');
     }
   })
-}
+};
 
 // user = username, callback = {sent: messages sent by user, received: messages received by user}
-var getMessages = function(user, callback) {
+var getMessages = function (user, callback) {
   var results = {sent: [], received: []};
-  Message.find({sender: user}, function(err, sent) {
+  Message.find({sender: user}, function (err, sent) {
     results.sent = sent.slice();
 
-    Message.find({receiver: user}, function(err, received) {
+    Message.find({receiver: user}, function (err, received) {
       results.received = received.slice();
 
       callback(results);
     })
 
   })
-}
+};
 
-var getCookieUser = function(cookie) {
+var getCookieUser = function (cookie) {
   User.find({cookies: cookies}, (matches) => {
-    if(matches.length > 0){
+    if (matches.length > 0) {
       callback({username: matches.username});
       return {username: matches.username};
     } else {
@@ -139,36 +388,36 @@ var getCookieUser = function(cookie) {
       return {};
     }
   })
-}
-
+};
 
 
 // userInfo = {username, password, fullname, email, location, cookies},
 // callback = false: user already exists - true: user created successfully
-var postUser = function(userInfo, cookie, callback) {
-  User.findOne({ username: userInfo.username }, (err, doc) => {
-    if(doc) {
+var postUser = function (userInfo, cookie, callback) {
+  User.findOne({username: userInfo.username}, (err, doc) => {
+    if (doc) {
       console.log('User already exists');
       callback(false);
     } else {
 
       User.update({cookies: cookie},
-        {$set:{
-          username: userInfo.username,
-          password: userInfo.password,
-          fullname: userInfo.fullname,
-          email: userInfo.email,
-          location: userInfo.location
-        }
-      }, {upsert: true}, (err, user) => callback(true));
+        {
+          $set: {
+            username: userInfo.username,
+            password: userInfo.password,
+            fullname: userInfo.fullname,
+            email: userInfo.email,
+            location: userInfo.location
+          }
+        }, {upsert: true}, (err, user) => callback(true));
     }
   })
-}
+};
 
 // TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!
-var postCookie = function(cookie, callback) {
-  User.find({cookies: cookie}, function(err, doc) {
-    if(doc) {
+var postCookie = function (cookie, callback) {
+  User.find({cookies: cookie}, function (err, doc) {
+    if (doc) {
       callback(false);
       return false;
     } else {
@@ -178,15 +427,15 @@ var postCookie = function(cookie, callback) {
       return true;
     }
   })
-}
+};
 
 
 // user = username, results = type
-var postTestResults = function(user, results, callback) {
-  User.findOne({username: user}, function(err,doc) {
-    if(doc) {
+var postTestResults = function (user, results, callback) {
+  User.findOne({username: user}, function (err, doc) {
+    if (doc) {
       User.update({username: user},
-        {$set: { testResults: results }}, {upsert: true}, () => {
+        {$set: {testResults: results}}, {upsert: true}, () => {
           postMatches(user, results, () => {
             callback();
           })
@@ -195,28 +444,26 @@ var postTestResults = function(user, results, callback) {
       console.log('User not found in postTestResults');
     }
   })
-}
+};
 
 // senderName = sender, receiverName = receiver, messageText = message
-var postMessage = function(senderName, receiverName, messageText, callback) {
+var postMessage = function (senderName, receiverName, messageText, callback) {
   var message = new Message({
     sender: senderName,
     receiver: receiverName,
     message: messageText
   });
 
-  message.save(function(){
+  message.save(function () {
     callback();
   });
-}
+};
 
 // user1 = username that we want results for, matchInfo = a list that matches all the other users
-var postMatches = function(user1, userResults, callback) {
+var postMatches = function (user1, userResults, callback) {
   User.find({}, {username: 1, testResults: 1}, (err, users) => {
-    var counter = 0;
-    users.forEach(function(user2){
-      counter++;
-      if(user1 !== user2.username && user2.testResults !== undefined) {
+    async.forEach(users, function (user2, iterate_callback) {
+      if (user1 !== user2.username && user2.testResults !== undefined) {
         var test1 = new Test({
           username: user1,
           match: user2.username,
@@ -224,7 +471,7 @@ var postMatches = function(user1, userResults, callback) {
           alreadyMatches: false
         });
 
-        test1.save( () => {
+        test1.save(() => {
           var test2 = new Test({
             username: user2.username,
             match: user1,
@@ -232,21 +479,80 @@ var postMatches = function(user1, userResults, callback) {
             alreadyMatches: false
           });
 
-          test2.save( () => {
-            if(counter === users.length) {
-              callback();
-            }
+          test2.save(() => {
+            iterate_callback();
           });
         })
       } else {
-
-        if(counter === users.length) {
-          callback();
-        }
+        iterate_callback();
       }
+    }, function (err) {
+      return callback();
     })
   })
-}
+};
+
+var postAddFriend = function (user1, user2, callback) {
+  Test.findOne({username: user1}, function (err, doc) {
+    if (doc) {
+      Test.update({username: user1, match: user2}, {
+        $set: {alreadyMatches: true, currentlyFriends: true}
+      }, {upsert: true}, () => {
+        Test.findOne({username: user2, match: user1}, function (err, doc) {
+          if (doc) {
+            Test.update({username: user2, match: user1}, {
+              $set: {alreadyMatches: true, currentlyFriends: true}
+            }, {upsert: true}, () => {
+              callback(true);
+            })
+          }
+        })
+      })
+    }
+  })
+};
+
+var postRemoveFriend = function (user1, user2, callback) {
+  Test.findOne({username: user1}, function (err, doc) {
+    if (doc) {
+      Test.update({username: user1, match: user2}, {
+        $set: {currentlyFriends: false}
+      }, {upsert: true}, () => {
+        Test.findOne({username: user2, match: user1}, function (err, doc) {
+          if (doc) {
+            Test.update({username: user2, match: user1}, {
+              $set: {currentlyFriends: false}
+            }, {upsert: true}, () => {
+              callback();
+            })
+          }
+        })
+      })
+    }
+  })
+};
+
+var postGetMatches = function (user, numberToReturn, maxFriends, callback) {
+  Test.find({username: user, alreadyMatches: false}).sort('-compatability').exec(function (err, users) {
+    var results = [];
+    async.forEach(users, function (match, iterate_callback) {
+        Test.count({username: match.match, currentlyFriends: false}, function (err, count) {
+          if (count <= maxFriends && results.length < numberToReturn) {
+            results.push(match);
+            postAddFriend(user, match.match, () => {
+              iterate_callback();
+            });
+          } else {
+            iterate_callback();
+          }
+        })
+      }, function (err) {
+        callback(results);
+      }
+    )
+  })
+};
+
 
 var clear = (callback) => {
   User.remove({}, () => {
@@ -256,11 +562,11 @@ var clear = (callback) => {
       });
     });
   });
-}
+};
 
 module.exports.getHash = getHash;
 module.exports.getProfile = getProfile;
-module.exports.getMatches = getMatches;
+module.exports.getFriends = getFriends;
 module.exports.getMessages = getMessages;
 module.exports.getCookieUser = getCookieUser;
 module.exports.postUser = postUser;
@@ -268,6 +574,9 @@ module.exports.postCookie = postCookie;
 module.exports.postTestResults = postTestResults;
 module.exports.postMessage = postMessage;
 module.exports.postMatches = postMatches;
+module.exports.postGetMatches = postGetMatches;
+
+
 module.exports.clear = clear;
 
 

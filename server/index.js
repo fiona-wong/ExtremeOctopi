@@ -39,6 +39,7 @@ app.post('/message', (req, res) => {
 	db.postMessage(req.body.sender, req.body.receiver, req.body.message, () => {
 		res.status(201).end();	
 	});	
+})
 
 app.get('/matches', (req, res) => {
 	db.getMatches(req.body.username, (matches) => {
@@ -73,7 +74,7 @@ app.all('*', (req, res) => {
 
 app.listen( 8080, function() {
   console.log( 'listening on port 8080!' );
-} );
+});
 
 
 module.exports = app;

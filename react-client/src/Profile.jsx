@@ -37,7 +37,7 @@ class Profile extends React.Component {
   render () {
     return (
 
-    	<div className="row">
+    	<div className="form-control">
     	<h1>{this.state.name}'s Profile</h1>
 
     	<img src={this.state.profilePic} width="200" height="200"></img>{this.state.location}

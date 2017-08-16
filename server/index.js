@@ -3,12 +3,16 @@
 var db = require( '../database-mongo' );
 var body = require( 'body-parser' );
 var express = require( 'express' );
-var request = require( 'request');
+var request = require( 'request' );
+var authentication = require( './authentication/authentication.js' );
+var cookies = require( './authentication/cookies.js' );
 // require authentication
 
 var app = express();
 
 app.use( express.static( __dirname + '/../react-client/dist' ) );
+app.use( cookies.parseCookies );
+app.use( cookies.createSession );
 
 
 //wating for authentication

@@ -316,7 +316,7 @@ var testResultsSchema = mongoose.Schema({
   currentlyFriends: Boolean
 });
 
-var User = mongoose.model('User', userSchema);
+var User = mongoose.model('User', userSchema, 'User');
 var Message = mongoose.model('Message', messageSchema);
 var Test = mongoose.model('Test', testResultsSchema);
 
@@ -381,9 +381,10 @@ var getMessages = function (user, callback) {
   })
 };
 
-var getCookieUser = function (cookie) {
-  User.find({cookies: cookies}, (matches) => {
-    if (matches.length > 0) {
+var getCookieUser = function (cookie, callback) {
+  User.findOne({cookies: cookie}, (matches) => {
+    console.log('matches', matches);
+    if (matches) {
       callback({username: matches.username});
       return {username: matches.username};
     } else {

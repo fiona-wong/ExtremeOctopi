@@ -27,12 +27,18 @@ db.clear(() => {
               db.postUser(user3, cookies[2], function (success) {
                 db.postUser(user4, cookies[3], function () {
 
-
                   var testGetProfile = function () {
                     db.getProfile(user1.username, (results) => {
                       console.log('\n\n\nGet profile cookie should = "adoije"...................\n');
                       console.log(results.cookies);
                     });
+                  }
+
+                  var testGetCookieUser = function(){
+                    db.getCookieUser(cookies[0], (user) => {
+                      console.log('\n\nGet cookie user should = "Mardymar"........................\n');
+                      console.log(user);
+                    })
                   }
 
                   var testGetHash = () => {
@@ -76,6 +82,7 @@ db.clear(() => {
                   };
 
                   testGetProfile();
+                  testGetCookieUser();
                   testGetHash();
                   testPostMessageAndGetMessage();
                   testPostTestResults();

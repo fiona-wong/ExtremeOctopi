@@ -455,7 +455,8 @@ var postMessage = function (senderName, receiverName, messageText, callback) {
   var message = new Message({
     sender: senderName,
     receiver: receiverName,
-    message: messageText
+    message: messageText,
+    time: Date.now()
   });
 
   message.save(function () {

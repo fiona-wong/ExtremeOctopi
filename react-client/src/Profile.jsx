@@ -3,7 +3,6 @@ import React from 'react';
 class Profile extends React.Component {
 	constructor(props) {
     	super(props);
-
     	this.state = {
     		profilePic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg',
     		name: 'Fiona',

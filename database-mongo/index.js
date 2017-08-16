@@ -342,8 +342,8 @@ var getProfile = function (user, callback) {
     if (doc) {
       callback(doc);
     } else {
-      console.log( 'User not found' );
-      callback(null);
+      callback();
+      console.log('User not found');
     }
   });
 };
@@ -354,8 +354,8 @@ var getFriends = function (user, callback) {
     if (matches) {
       callback(matches);
     } else {
-      console.log( 'User not found' );
-      callback(null);
+      callback();
+      console.log('User not found');
     }
   });
 };
@@ -442,7 +442,7 @@ var postTestResults = function (user, results, callback) {
         });
     } else {
       console.log('User not found');
-      callback(null);
+      callback();
     }
   })
 };

@@ -1,31 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
+import React from 'react'
+import { render } from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App.jsx';
 
-class App extends React.Component {
-  constructor( props ) {
-    super( props );
-    this.state = {}
-  }
+render((
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+), document.getElementById('root'));
 
-  componentDidMount() {
-    $.ajax( {
-      url: '/', 
-      success: ( data ) => {
-        console.log( data );
-      },
-      error: ( error ) => {
-        console.log( 'ERROR: ', error );
-      }
-    } );
-  }
-
-  render () {
-    return (
-      <div>
-      </div>
-    )
-  }
-}
-
-ReactDOM.render( <App/>, document.querySelector( '#app' ) );

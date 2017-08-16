@@ -568,6 +568,7 @@ module.exports.getHash = getHash;
 module.exports.getProfile = getProfile;
 module.exports.getFriends = getFriends;
 module.exports.getMessages = getMessages;
+module.exports.getCookieUser = getCookieUser;
 module.exports.postUser = postUser;
 module.exports.postCookie = postCookie;
 module.exports.postTestResults = postTestResults;
@@ -577,7 +578,6 @@ module.exports.postGetMatches = postGetMatches;
 
 
 module.exports.clear = clear;
-
 
 
 

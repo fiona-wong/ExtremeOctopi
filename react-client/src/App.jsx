@@ -5,8 +5,12 @@ import Main from './main.jsx';
 const App = () => {
   return ( 
 	  <div>
-	    <h1>Welcome to the FriendZone</h1>
 	    <Header />
+	    <h1>Welcome to the FriendZone</h1>
+	    <br/>
+	    <br/>
+	    <br/>
+	    <hr/>
 	    <Main />
 	  </div>
   )

@@ -19,8 +19,7 @@ class Test extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>Personality Test</h1>
-				
+				<h1>Personality Quiz</h1>	
 				<a href="https://www.16personalities.com/free-personality-test" target="_blank">take the test</a>
 				<br/>
 				<br/>

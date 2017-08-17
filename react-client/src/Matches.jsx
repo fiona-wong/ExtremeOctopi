@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
 import EditProfile from './components/EditProfile.jsx';
 import MatchesList from './components/MatchesList.jsx';
+import React from 'react';
+import $ from 'jquery';
+import ImageUpload from './components/UploadPic.jsx';
 
 
 class Matches extends React.Component {
@@ -60,6 +60,7 @@ class Matches extends React.Component {
   render () {
     return (
       <div>
+      <ImageUpload />
         <EditProfile handleChange={this.handleChange}/>
         <MatchesList matches={this.state.matches}/>
         <button>Click for Messages!</button>

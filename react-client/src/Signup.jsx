@@ -37,12 +37,10 @@ class Signup extends React.Component {
         password: this.state.password
       },
       success: ( data ) => {
-        //renders new page
-        console.log( data );
+        console.log( 'SUCCESS:', JSON.parse( data ) );
       },
       error: ( error ) => {
-        //debug
-        console.log( 'ERROR: ', error );
+        console.log( 'ERROR:', error );
       }
     });
   }

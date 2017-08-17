@@ -21,9 +21,23 @@ app.post('/login', (req, res) => {
 		res.status(201).end();
 })
 
-app.post('/signup', (req, res) => {
-	res.status(201).end();
-})
+app.post( '/signup', ( req, res ) => {
+  var passwordHash = authentication.generateHash( req.body.password );
+  var newUser = {
+    username: req.body.username,
+    password: req.body.password,
+    fullname: req.body.fullname,
+    email: req.body.email,
+  };
+
+  db.postUser( newUser, req.cookies.takoyaki, ( valid ) => {
+    if ( valid ) {
+	    res.status( 201 ).end( JSON.stringify( true ) );
+    } else {
+      res.status( 201 ).end( JSON.stringify( false ) );
+    }
+  } )
+} )
 
 app.post('/test', (req, res) => {
 	db.postTestResults(req.body.username, req.body.results, () => {

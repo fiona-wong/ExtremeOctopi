@@ -2,18 +2,18 @@ import React from 'react';
 
 class Profile extends React.Component {
 	constructor(props) {
-		super(props);
+    	super(props);
 
-		this.state = {
-			profilePic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg',
-			name: 'Fiona',
-			location: 'San Francisco',
-			hobbies: 'doing things',
-			aboutme: 'I like doing things'
-		}
+    	this.state = {
+    		profilePic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg',
+    		name: 'Fiona',
+    		location: 'San Francisco',
+    		hobbies: 'doing things',
+    		aboutme: 'I like doing things'
+    	}
 	}
 
-	// componentDidMount () {
+ // componentDidMount () {
  //    $.ajax({
  //      url: '/profile',
  //      method: 'GET',
@@ -36,7 +36,6 @@ class Profile extends React.Component {
 
   render () {
     return (
-
     	<div className="form-control">
     	<h1>{this.state.name}'s Profile</h1>
 

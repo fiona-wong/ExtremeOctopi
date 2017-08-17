@@ -43,12 +43,6 @@ app.post('/message', (req, res) => {
 	});	
 })
 
-app.get('/matches', (req, res) => {
-	db.getMatches(req.body.username, (matches) => {
-		res.status(200).send(JSON.stringify(matches));	
-	})
-})	
-
 app.get('/profile', (req, res) => {
 	db.getProfile(req.body.username, (profile) => {
 		res.status(200).send(JSON.stringify(profile));

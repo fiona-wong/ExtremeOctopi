@@ -54,7 +54,7 @@ exports.createSession = ( req, res, next ) => {
   .catch( ( error ) => {
     var cookie = this.bakeCookies();
     
-    setCookie( cookie );
+    //setCookie( cookie );
 
     req.session = { cookie: cookie };
     res.cookie( 'takoyaki', cookie );

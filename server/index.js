@@ -20,9 +20,13 @@ app.use( cookies.createSession );
 app.post( '/login', ( req, res ) => {
   db.getHash( req.body.username, ( password ) => {
     if ( authentication.authenticate( req.body.password, password ) ) {
-      cookies.createSession( req, res, () => {
-        res.status( 201 ).end( JSON.stringify( true ) );
-      } );
+      // cookies.createSession( req, res, () => {
+      //   res.status( 201 ).end( JSON.stringify( true ) );
+
+      //   console.log( req.session );
+      // } );
+
+      res.status( 201 ).end( JSON.stringify( true ) );
     } else {
     	res.status( 201 ).end( JSON.stringify( false ) );
     }

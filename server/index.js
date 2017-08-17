@@ -20,7 +20,9 @@ app.use( cookies.createSession );
 app.post( '/login', ( req, res ) => {
   db.getHash( req.body.username, ( password ) => {
     if ( authentication.authenticate( req.body.password, password ) ) {
-      res.status( 201 ).end( JSON.stringify( true ) );
+      cookies.createSession( req, res, () => {
+        res.status( 201 ).end( JSON.stringify( true ) );
+      } );
     } else {
     	res.status( 201 ).end( JSON.stringify( false ) );
     }
@@ -37,7 +39,9 @@ app.post( '/signup', ( req, res ) => {
 
   db.postUser( newUser, req.cookies.takoyaki, ( valid ) => {
     if ( valid ) {
-	    res.status( 201 ).end( JSON.stringify( true ) );
+      cookies.createSession( req, res, () => {
+	      res.status( 201 ).end( JSON.stringify( true ) );
+      } );
     } else {
       res.status( 201 ).end( JSON.stringify( false ) );
     }

@@ -93,8 +93,8 @@ describe( 'Sessions', () => {
     var response = httpMocks.createResponse();
 
     cookies.createSession( requestWithoutCookies, response, () => {
-      cookies.verifySession( requestWithoutCookies, response, ()  => {
-        expect( true ).to.equal( false );
+      cookies.verifySession( requestWithoutCookies, response, ( valid )  => {
+        expect( valid ).to.equal( false );
       } );
     } );
   } );

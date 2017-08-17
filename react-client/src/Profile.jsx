@@ -36,17 +36,25 @@ class Profile extends React.Component {
 
   render () {
     return (
-    	<div className="form-control">
-    	<h1>{this.state.name}'s Profile</h1>
-
-    	<img src={this.state.profilePic} width="200" height="200"></img>{this.state.location}
-
-    	{this.state.hobbies}
-    	{this.state.aboutme}
-
-    	<button>Send {this.state.name} a message!</button>
-
-    	</div>
+      <div className="row">
+	      <div className="col-md-6">
+	    	<div className="container profile-pic">
+    	    <h1>{this.state.name}'s Profile</h1>
+    			<img className="img-circle" src={this.state.profilePic}></img>{this.state.location}
+    	  </div>
+        </div>
+        <div className="col-md-6">
+	    	<div className="container">
+	    	  Hobbies/Interests: {this.state.hobbies}
+	      </div>
+        <div className="container">
+    	    About Me: {this.state.aboutme}
+    	  </div>
+    	  <div className="container">
+          <button>Send {this.state.name} a message!</button>
+        </div>
+        </div>
+      </div>
     );
   }
 }

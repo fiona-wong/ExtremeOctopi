@@ -149,7 +149,8 @@ describe('testing matches get request', () => {
             })
           })
         })
-      })
+      });
+      
       request.get('http://127.0.0.1:8080/matches', (err, res, body) => {
         console.log('  *****************error: ', err);
         console.log('  *****************res.statusCode: ', res.statusCode);
@@ -159,7 +160,7 @@ describe('testing matches get request', () => {
       })
     })
   })
-})
+});
 
 describe('testing message get request', () => {
   it('send a 200 status code and a json stringified message', (done) => {

@@ -42,14 +42,12 @@ exports.createSession = ( req, res, next ) => {
       throw cookie;
     }
 
-    return getCookie( cookie );
+    return getCookie( req, cookie );
   } )
   .tap( ( session ) => {
-    if ( !session.username ) {
+    if ( !req.session.username ) {
       throw session;
     }
-
-    req.session = session;
 
     next();
   } )

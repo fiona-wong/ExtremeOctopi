@@ -55,7 +55,7 @@ class Profile extends React.Component {
           <br />
           <strong>About Me:&nbsp; </strong>{this.state.aboutme}
           <br />
-          <button className="message-button">Send {this.state.name} a message!</button>
+          <button className="message-button"><img src="logo.png" width="30" height="30" className="d-inline-block align-top" alt=""/>Send {this.state.name} a message!</button>
         </div>
 
       </div>

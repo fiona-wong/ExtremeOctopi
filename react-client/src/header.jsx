@@ -6,7 +6,7 @@ const Header = () => (
   <nav className="navbar navbar-inverse">
   <div className="container-fluid">
   <div className="navbar-header">
-  <a className="navbar-brand" href="#"><img src="redlogo.png" width="70" height="70" className="d-inline-block align-top" alt=""/></a>
+  <a className="navbar-brand" href="#"><img src="logo.png" width="70" height="70" className="d-inline-block align-top" alt=""/></a>
 
   </div>
   <ul className="nav navbar-nav">

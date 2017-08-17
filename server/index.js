@@ -17,15 +17,20 @@ app.use( bodyParser.json() );
 app.use( cookies.parseCookies );
 app.use( cookies.createSession );
 
-app.post('/login', (req, res) => {
-		res.status(201).end();
-})
+app.post( '/login', ( req, res ) => {
+  db.getHash( req.body.username, ( password ) => {
+    if ( authentication.authenticate( req.body.password, password ) ) {
+      res.status( 201 ).end( JSON.stringify( true ) );
+    } else {
+    	res.status( 201 ).end( JSON.stringify( false ) );
+    }
+  } );
+} )
 
 app.post( '/signup', ( req, res ) => {
-  var passwordHash = authentication.generateHash( req.body.password );
   var newUser = {
     username: req.body.username,
-    password: req.body.password,
+    password: authentication.generateHash( req.body.password ),
     fullname: req.body.fullname,
     email: req.body.email,
   };

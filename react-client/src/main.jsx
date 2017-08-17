@@ -5,7 +5,7 @@ import Messages from './messages';
 import Signup from './Signup.jsx';
 import Login from './Login.jsx';
 import React from 'react';
-import Test from './test';
+import Test from './Test.jsx';
 
 const Main = () => (
   <main>

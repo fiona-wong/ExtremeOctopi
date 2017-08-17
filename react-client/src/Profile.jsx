@@ -36,25 +36,30 @@ class Profile extends React.Component {
 
   render () {
     return (
+    <div className="container">
       <div className="row">
-	      <div className="col-md-6">
-	    	<div className="container profile-pic">
-    	    <h1>{this.state.name}'s Profile</h1>
-    			<img className="img-circle" src={this.state.profilePic}></img>{this.state.location}
-    	  </div>
+
+	      <div className="col-xs-6">
+	        <br />
+	        <br />
+	        <br />
+    			<img className="img-circle" src={this.state.profilePic}></img>
         </div>
-        <div className="col-md-6">
-	    	<div className="container">
-	    	  Hobbies/Interests: {this.state.hobbies}
-	      </div>
-        <div className="container">
-    	    About Me: {this.state.aboutme}
-    	  </div>
-    	  <div className="container">
-          <button>Send {this.state.name} a message!</button>
+
+        <div className="col-xs-6 center-text">
+    	    <h1>{this.state.name}'s Zone</h1>
+    	    <br />
+    			<strong>Location: &nbsp;</strong>{this.state.location}
+					<br />
+          <strong>Hobbies/Interests:&nbsp; </strong>{this.state.hobbies}
+          <br />
+          <strong>About Me:&nbsp; </strong>{this.state.aboutme}
+          <br />
+          <button className="message-button">Send {this.state.name} a message!</button>
         </div>
-        </div>
+
       </div>
+    </div>
     );
   }
 }

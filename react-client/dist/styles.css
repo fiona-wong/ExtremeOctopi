@@ -1,9 +1,19 @@
 body {
-	background: #FFF3E3 !important;
+	background: #FFF3E3;
 	color: #262B53;
 	position: relative;
+/*	background-image: url("logo.png");
+  background-repeat: no-repeat;*/
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+
+
+
 @font-family-base {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+h1 {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -103,8 +113,8 @@ h3 {
   border-top: 5px solid gray
   border-bottom: 5px solid gray
   img
-    width: 100%
-    height: 100%
+    width: 50px
+    height: 50px
 }
 .previewText {
   width: 100%
@@ -129,5 +139,33 @@ h3 {
 }
 
 .img-circle {
+	height: 500px;
+	width: 500px;
+	opacity: .95;
   border-radius: 50%;
+  border: 2px;
+  box-shadow: 4px 4px 4px #AE7182;
+  position:fixed;
+  top:200px;
+  left:250px;
+}
+
+
+.center-text {
+  font-size: 20px;
+  padding: 250px 50px 75px 50px;
+  color: #262B53;
+}
+
+.message-button {
+  position: fixed;
+  bottom: 250px;
+  right: 450px;
+  background-color: #6D5A7F;
+  color: #FFF3E3;
+  border: 4px #262B53;
+  border-radius: 15px;
+}
+.message-button:hover {
+  color: #FFF;
 }

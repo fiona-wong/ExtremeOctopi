@@ -22,9 +22,9 @@ db.clear(() => {
     db.postCookie(cookies[1], function() {
       db.postCookie(cookies[3], function () {
         db.postCookie(cookies[4], function () {
-          db.postUser(user1, cookies[0], function (success) {
+          db.postUser(user1, cookies[0], function () {
             db.postUser(user2, cookies[1], function () {
-              db.postUser(user3, cookies[2], function (success) {
+              db.postUser(user3, cookies[2], function () {
                 db.postUser(user4, cookies[3], function () {
 
                   var testGetProfile = function () {

@@ -382,10 +382,9 @@ var getMessages = function (user, callback) {
 };
 
 var getCookieUser = function (cookie, callback) {
-  User.findOne({cookies: cookie}, (matches) => {
-    console.log('matches', matches);
+  User.findOne({cookies: cookie}, (err, matches) => {
     if (matches) {
-      callback({username: matches.username});
+      callback({username: matches.username, cookies: cookie});
       return {username: matches.username};
     } else {
       callback({});

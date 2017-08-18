@@ -4,7 +4,7 @@ import React from 'react';
 class ImageUpload extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {file: '',imagePreviewUrl: ''};
+    this.state = {file: '',imagePreviewUrl: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg'};
   }
 
   _handleSubmit(e) {
@@ -33,13 +33,16 @@ class ImageUpload extends React.Component {
     let {imagePreviewUrl} = this.state;
     let $imagePreview = null;
     if (imagePreviewUrl) {
-      $imagePreview = (<img src={imagePreviewUrl} />);
+      $imagePreview = (<img className="imgPreview" src={imagePreviewUrl} />);
     } else {
       $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
     }
 
     return (
       <div className="previewComponent">
+        <div>
+          {$imagePreview}
+        </div>
         <form onSubmit={(e)=>this._handleSubmit(e)}>
           <input className="fileInput" 
             type="file" 
@@ -48,9 +51,6 @@ class ImageUpload extends React.Component {
             type="submit" 
             onClick={(e)=>this._handleSubmit(e)}>Upload Image</button>
         </form>
-        <div className="imgPreview">
-          {$imagePreview}
-        </div>
       </div>
     )
   }

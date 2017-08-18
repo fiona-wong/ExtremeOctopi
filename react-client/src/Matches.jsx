@@ -13,7 +13,7 @@ class Matches extends React.Component {
       name: '',
       hobbies: '',
       aboutme: '',
-      matches: [1,2,3,4,5,6,7,8,9,10]
+      matches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -40,13 +40,13 @@ class Matches extends React.Component {
   // }
 
 
-  handleEditProfile (event) {
+  handleEditProfile(event) {
     event.preventDefault();
 
 
   }
 
-  handleChange (event) {
+  handleChange(event) {
     event.preventDefault();
     const target = event.target;
     const name = target.name;
@@ -56,14 +56,25 @@ class Matches extends React.Component {
   }
 
 
-
-  render () {
+  render() {
     return (
       <div>
-      <ImageUpload />
-        <EditProfile handleChange={this.handleChange}/>
-        <MatchesList matches={this.state.matches}/>
-        <button>Click for Messages!</button>
+        <div className="row">
+          <div className="col-md-4">
+            <ImageUpload />
+          </div>
+          <div className="col-md-8">
+            <EditProfile handleChange={this.handleChange}/>
+          </div>
+        </div>
+        <div className="row">
+          <div className="matches-list col-lg-offset-1">
+            <MatchesList matches={this.state.matches}/>
+          </div>
+        </div>
+        <div className="row get-messages">
+          <button>Click for Messages!</button>
+        </div>
       </div>
     )
   }

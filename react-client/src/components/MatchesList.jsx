@@ -4,9 +4,9 @@ const MatchesList = (props) => (
   <div>
     <h3>Top 10 Matches</h3>
     <div>
-    <ul>
+    <ul className="list-group">
       {props.matches.map((match, index) => (
-        <li key={index}>{match}</li>
+        <li key={index} className="list-group-item">{match}</li>
       ))}
     </ul>
     </div>

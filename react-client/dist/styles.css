@@ -39,7 +39,16 @@ h1 {
     padding: 10px;
 @include box-sizing(border-box);
 
+/*&*/
+/*:focus {*/
+    /*z-index: 2;*/
+/*}*/
 
+=======
+h1 {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+>>>>>>> changled style
+}
 
 input[type="text"] {
     margin-bottom: -1px;
@@ -47,12 +56,12 @@ input[type="text"] {
     border-bottom-right-radius: 0;
 }
 
-
+<<<<<<< HEAD
 input[type="password"] {
     margin-bottom: 20px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-
+=======
 .form-signin {
   max-width: 380px;
   padding: 15px 35px 45px;
@@ -87,8 +96,8 @@ input[type="password"] {
 	  border-top-left-radius: 0;
 	  border-top-right-radius: 0;
 	}
+>>>>>>> changled style
 }
-
 
 
 

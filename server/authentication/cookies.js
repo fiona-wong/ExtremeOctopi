@@ -18,7 +18,7 @@ exports.bakeCookies = (  ) => {
 
 exports.parseCookies = ( req, res, next ) => {
   var cookieString = req.get( 'Cookie' );
-    
+
   req.cookies = req.cookies || {};
 
   if ( cookieString ) {

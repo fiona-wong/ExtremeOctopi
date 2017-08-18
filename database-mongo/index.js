@@ -298,7 +298,7 @@ var userSchema = mongoose.Schema({
   location: String,
   hobbies: String,
   blog: String,
-  img: {data: Buffer, contentType: String}
+  img: String
 });
 
 var messageSchema = mongoose.Schema({

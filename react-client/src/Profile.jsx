@@ -37,14 +37,8 @@ class Profile extends React.Component {
   render () {
     return (
     <div className="container">
-      <div className="row">
 
-	      <div className="col-xs-6">
-	        <br />
-	        <br />
-	        <br />
-    			<img className="img-circle" src={this.state.profilePic}></img>
-        </div>
+			  <img className="img-circle" src={this.state.profilePic}></img>
 
         <div className="col-xs-6 center-text">
     	    <h1>{this.state.name}'s Zone</h1>
@@ -57,8 +51,6 @@ class Profile extends React.Component {
           <br />
           <button className="message-button"><img src="logo.png" width="30" height="30" className="d-inline-block align-top" alt=""/>Send {this.state.name} a message!</button>
         </div>
-
-      </div>
     </div>
     );
   }

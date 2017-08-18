@@ -5,7 +5,9 @@ const Database = require( '../../database-mongo/index.js' );
 const getCookie = Database.getCookieUser;
 const setCookie = Database.postCookie;
 
-exports.bakeCookies = ( bytes = 32, algorithm = 'sha256' ) => {
+var bytes = 32;
+var algorithm = 'sha256';
+exports.bakeCookies = (  ) => {
   var randomString = crypto.randomBytes( bytes ).toString( 'hex' );
   var hash = crypto.createHash( algorithm );
 

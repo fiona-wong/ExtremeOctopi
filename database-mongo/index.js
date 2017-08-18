@@ -417,6 +417,31 @@ var postUser = function (userInfo, cookie, callback) {
   });
 };
 
+var postUpdateUser = function (userInfo, callback) {
+  User.findOne({username: userInfo.username}, (err, doc) => {
+    if (doc) {
+      User.update(
+        {
+          username: userInfo.username
+        },
+        {
+          $set: {
+            blog: userInfo.blog,
+            hobbies: userIngo.hobbies,
+            img: userInfo.image
+          }
+        },
+        {
+          upsert: true
+        },
+        (err, user) => callback(true)
+      );
+    } else {
+      callback(false);
+    }
+  });
+};
+
 // TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!
 var postCookie = function (cookie, callback) {
   User.find({cookies: cookie}, function (err, doc) {
@@ -579,5 +604,6 @@ module.exports.postMessage = postMessage;
 module.exports.postMatches = postMatches;
 module.exports.postGetMatches = postGetMatches;
 module.exports.postRemoveFriend = postRemoveFriend;
+module.exports.postUpdateUser = postUpdateUser;
 module.exports.clear = clear;
 

@@ -42,7 +42,7 @@ app.post( '/signup', ( req, res ) => {
       res.status( 201 ).end( JSON.stringify( false ) );
     }
   } )
-} )
+} );
 
 app.post('/test', (req, res) => {
 	db.postTestResults(req.body.username, req.body.results, () => {

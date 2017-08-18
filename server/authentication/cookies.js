@@ -41,14 +41,26 @@ exports.createSession = ( req, res, next ) => {
       throw cookie;
     }
 
-    return getCookie( req, cookie );
-  } )
-  .tap( ( session ) => {
-    if ( !req.session.username ) {
-      throw session;
-    }
+    getCookie( cookie, ( session ) => {
+      Promise.resolve( session )
+      .tap( ( session ) => {
+        if ( !session.username ) {
+          throw session;
+        }
 
-    next();
+        req.session = session;
+
+        next();
+      } )
+      .catch( ( error ) => {
+        var cookie = this.bakeCookies();
+
+        req.session = { cookie: cookie };
+        res.cookie( 'takoyaki', cookie );
+
+        next();
+      } );
+    } );
   } )
   .catch( ( error ) => {
     var cookie = this.bakeCookies();

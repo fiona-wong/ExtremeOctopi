@@ -46,7 +46,7 @@ describe( 'Sessions', () => {
     } );
   } );
 
-  it( 'should initialize sessions given invalid cookies', () => {
+  it( 'should initialize sessions given invalid cookies', ( done ) => {
     var requestWithCookies = httpMocks.createRequest(
       { headers: { Cookie: 'hotate=aCookie; takoyaki=bCookie; tamago=cCookie' } }
     );
@@ -56,11 +56,13 @@ describe( 'Sessions', () => {
       cookies.createSession( requestWithCookies, response, () => {
         expect( requestWithCookies.session.cookie ).to.exist;
         expect( response.cookies.takoyaki.value ).to.exist;
+
+        done();
       } );
     } );
   } );
 
-  it ( 'should retrieve sessions given valid cookies', () => {
+  it ( 'should retrieve sessions given valid cookies', ( done ) => {
     var cookie = cookies.bakeCookies();
     var user =  {
       username: 'username',
@@ -80,7 +82,10 @@ describe( 'Sessions', () => {
         cookies.parseCookies( requestWithCookies, response, () => {
           cookies.createSession( requestWithCookies, response, () => {
             Database.clear( () => {
+              expect( response.cookies.takoyaki ).to.not.exist;
               expect( requestWithCookies.session.username ).to.equal( 'username' );
+
+              done();
             } );
           } );
         } );
@@ -88,13 +93,43 @@ describe( 'Sessions', () => {
     } );
   } );
 
-  it( 'should verify sessions', () => {
+  it( 'should verify sessions', ( done ) => {
     var requestWithoutCookies  = httpMocks.createRequest();
     var response = httpMocks.createResponse();
 
     cookies.createSession( requestWithoutCookies, response, () => {
       cookies.verifySession( requestWithoutCookies, response, ( valid )  => {
         expect( valid ).to.equal( false );
+      } );
+    } );
+
+    var cookie = cookies.bakeCookies();
+    var user =  {
+      username: 'username',
+      password: 'password',
+      fullname: 'fullname',
+      email: 'email',
+      location: 'location',
+    };
+
+    Database.clear( () => {
+      Database.postUser( user, cookie, () => {
+        var requestWithCookies = httpMocks.createRequest(
+          { headers: { Cookie: 'hotate=aCookie; takoyaki=' +  cookie + '; tamago=cCookie' } }
+        );
+        var response = httpMocks.createResponse();
+
+        cookies.parseCookies( requestWithCookies, response, () => {
+          cookies.createSession( requestWithCookies, response, () => {
+            cookies.verifySession( requestWithCookies, response, ( valid ) => {
+              Database.clear( () => {
+                expect( valid ).to.equal( true );
+
+                done();
+              } );
+            } );
+          } );
+        } );
       } );
     } );
   } );

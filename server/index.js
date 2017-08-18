@@ -7,7 +7,6 @@ var express = require( 'express' );
 var request = require( 'request' );
 var authentication = require( './authentication/authentication.js' );
 var cookies = require( './authentication/cookies.js' );
-// require authentication
 
 var app = express();
 
@@ -24,6 +23,7 @@ app.get( '/profile', ( req, res ) => {
         res.status( 200 ).end( JSON.stringify( profile ) );
       } )
     } else {
+      console.log( 'invalid', req.session );
       res.status( 200 ).end( JSON.stringify( false ) );
     }
   } );
@@ -54,6 +54,8 @@ app.get( '/message', ( req, res ) => {
 } );
 
 app.post( '/signup', ( req, res ) => {
+  console.log( req.session );
+
   var newUser = {
     username: req.body.username,
     password: authentication.generateHash( req.body.password ),
@@ -61,31 +63,23 @@ app.post( '/signup', ( req, res ) => {
     email: req.body.email,
   };
 
-  cookies.parseCookies( req, res, () => {
-    db.postUser( newUser, req.cookies.takoyaki, ( valid ) => {
-      if ( valid ) {
-        cookies.createSession( req, res, () => {
-          res.status( 201 ).end( JSON.stringify( true ) );
-        } );
-      } else {
-        res.status( 201 ).end( JSON.stringify( false ) );
-      }
-    } );
+  db.postUser( newUser, req.cookies.takoyaki, ( valid ) => {
+    if ( valid ) {
+      res.cookie( 'takoyaki', req.cookies.takoyaki ).status( 201 ).end( JSON.stringify( true ) );
+    } else {
+      res.status( 201 ).end( JSON.stringify( false ) );
+    }
   } );
 } );
 
-//Currently, if the user has valid cookies and the code works, the user shouldn't have to log in
-//!!!!! We need a way to update the cookie in the database if the user clears their cookie !!!!!
-//Right now the user can't get a valid session if they ever lose their cookie
+//This is currently working, however...
+//This currently poses a securrity risk because a user always has one associated cookie
+//We need to update their cookie if they log in
 app.post( '/login', ( req, res ) => {
   db.getHash( req.body.username, ( password ) => {
     if ( authentication.authenticate( req.body.password, password ) ) {
-      cookies.parseCookies( req, res, () => {
-        //Update the database here using the parsed cookies. req.cookies.takoyaki
-
-        cookies.createSession( req, res, () => {
-          res.status( 201 ).end( JSON.stringify( true ) );
-        } );
+      db.getProfile( req.body.username, ( user ) => {
+        res.cookie( 'takoyaki', user.cookies ).status( 201 ).end( JSON.stringify( true ) );
       } );
     } else {
     	res.status( 201 ).end( JSON.stringify( false ) );

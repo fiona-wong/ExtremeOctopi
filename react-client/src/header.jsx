@@ -3,6 +3,7 @@ import React from 'react';
 
 const Header = () => (
 
+
   <nav className="navbar navbar-inverse">
   <div className="container-fluid">
   <div className="navbar-header">
@@ -20,6 +21,6 @@ const Header = () => (
   </div>
   </nav>
 
-)
+);
 
 export default Header

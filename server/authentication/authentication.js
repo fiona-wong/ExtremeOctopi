@@ -1,10 +1,13 @@
 const crypto = require( 'crypto' );
 
-exports.generateSalt = ( bytes = 32 ) => {
+var bytes = 32;
+exports.generateSalt = (   ) => {
   return crypto.randomBytes( bytes ).toString( 'hex' );
 };
 
-exports.generateHash = ( password, salt = '', algorithm = 'sha256' ) => {
+var salt = '';
+var algorithm = 'sha256';
+exports.generateHash = ( password ) => {
   var hash = crypto.createHash( algorithm );
 
   hash.update( password + salt );
@@ -12,7 +15,7 @@ exports.generateHash = ( password, salt = '', algorithm = 'sha256' ) => {
   return hash.digest( 'hex' );
 };
 
-exports.authenticate = ( attemptedPassword, password, salt = '', algorithm = 'sha256' ) => {
+exports.authenticate = ( attemptedPassword, password ) => {
   var attemptedPassword = this.generateHash( attemptedPassword, salt, algorithm );
 
   return attemptedPassword === password;

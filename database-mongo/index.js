@@ -375,14 +375,12 @@ var getMessages = function (user, callback) {
   });
 };
 
-
 var getCookieUser = function (cookie, callback) {
-  User.findOne({cookies: cookie}, (err, matches) => {
-    if (matches) {
-      callback({username: matches.username, cookies: cookie});
-      return {username: matches.username};
+  User.find({cookies: cookie}, (error, matches) => {
+    if (matches.length !== 0) {
+      callback({username: matches[ 0 ].username, cookies: cookie});
     } else {
-      return {};
+      callback({});
     }
   });
 };

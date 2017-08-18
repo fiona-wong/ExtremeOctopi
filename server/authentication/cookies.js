@@ -18,12 +18,11 @@ exports.bakeCookies = (  ) => {
 
 exports.parseCookies = ( req, res, next ) => {
   var cookieString = req.get( 'Cookie' );
-    
+
   req.cookies = req.cookies || {};
 
   if ( cookieString ) {
     var cookies = cookieString.split( '; ' );
-
 
     for ( var i = 0; i !== cookies.length; i++ ) {
       var cookie = cookies[ i ].split( '=' );
@@ -42,21 +41,29 @@ exports.createSession = ( req, res, next ) => {
       throw cookie;
     }
 
-    return getCookie( cookie );
-  } )
-  .tap( ( session ) => {
-    if ( !session.username ) {
-      throw session;
-    }
+    getCookie( cookie, ( session ) => {
+      Promise.resolve( session )
+      .tap( ( session ) => {
+        if ( !session.username ) {
+          throw session;
+        }
 
-    req.session = session;
+        req.session = session;
 
-    next();
+        next();
+      } )
+      .catch( ( error ) => {
+        var cookie = this.bakeCookies();
+
+        req.session = { cookie: cookie };
+        res.cookie( 'takoyaki', cookie );
+
+        next();
+      } );
+    } );
   } )
   .catch( ( error ) => {
     var cookie = this.bakeCookies();
-    
-    setCookie( cookie );
 
     req.session = { cookie: cookie };
     res.cookie( 'takoyaki', cookie );
@@ -67,9 +74,9 @@ exports.createSession = ( req, res, next ) => {
 
 exports.verifySession = ( req, res, next ) => {
   if ( req.session.username ) {
-    next();
+    next( true );
   } else {
-    res.redirect( '/login' );
+    next( false );
   }
 };
 

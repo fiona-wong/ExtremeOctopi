@@ -1,4 +1,7 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import {Redirect} from 'react-router';
+import {withRouter} from 'react-router-dom'
 import $ from 'jquery';
 
 class Signup extends React.Component {
@@ -15,7 +18,7 @@ class Signup extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleInputChange (event) {
+  handleInputChange(event) {
     event.preventDefault();
     const target = event.target;
     const name = target.name;
@@ -36,72 +39,73 @@ class Signup extends React.Component {
         username: this.state.username,
         password: this.state.password
       },
-      success: ( data ) => {
-        console.log( 'SUCCESS:', JSON.parse( data ) );
+      success: (data) => {
+        console.log('SUCCESS:', JSON.parse(data));
+        this.props.history.push('/Test')
       },
-      error: ( error ) => {
-        console.log( 'ERROR:', error );
+      error: (error) => {
+        console.log('ERROR:', error);
       }
     });
   }
 
-  render () {
+  render() {
     return (
       <div className="wrapper">
         <form className="form-signin" onSubmit={this.handleSubmit}>
-        <br />
-        <label>
-          Full Name:
-          <input
-            size="35"
-            className="form-control"
-            required=""
-            autoFocus=""          
-            name="fullname"
-            type="text"
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          E-mail:
-          <input
-            size="35"
-            className="form-control"
-            required=""
-            autoFocus=""          
-            name="email"
-            type="text"
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Username:
-          <input
-            size="35"
-            className="form-control"
-            required=""
-            autoFocus=""
-            name="username"
-            type="text"
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            size="35"
-            className="form-control"
-            required=""
-            autoFocus=""          
-            name="password"
-            type="password"
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <br />
-        <br />
-        <button className="button btn btn-lg btn-primary btn-block" type="submit">Sign Me Up!</button>
-      </form>
+          <br />
+          <label>
+            Full Name:
+            <input
+              size="35"
+              className="form-control"
+              required
+              autoFocus=""
+              name="fullname"
+              type="text"
+              onChange={this.handleInputChange}/>
+          </label>
+          <br />
+          <label>
+            E-mail:
+            <input
+              size="35"
+              className="form-control"
+              required
+              autoFocus=""
+              name="email"
+              type="text"
+              onChange={this.handleInputChange}/>
+          </label>
+          <br />
+          <label>
+            Username:
+            <input
+              size="35"
+              className="form-control"
+              required
+              autoFocus=""
+              name="username"
+              type="text"
+              onChange={this.handleInputChange}/>
+          </label>
+          <br />
+          <label>
+            Password:
+            <input
+              size="35"
+              className="form-control"
+              required
+              autoFocus=""
+              name="password"
+              type="password"
+              onChange={this.handleInputChange}/>
+          </label>
+          <br />
+          <br />
+          <br />
+          <button className="button btn btn-lg btn-primary btn-block" type="submit">Sign Me Up!</button>
+        </form>
       </div>
 
     )

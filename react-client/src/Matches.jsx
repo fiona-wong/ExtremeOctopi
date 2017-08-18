@@ -9,11 +9,21 @@ class Matches extends React.Component {
   constructor(props) {
     super(props);
 
+    var matchList = [
+      {name: 'Alan Turning', pic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg'},
+      {name: 'Tom Cruz', pic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg'},
+      {name: 'Albert Einstein', pic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg'},
+      {name: 'Pam Yanez', pic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg'},
+      {name: 'Mike Colson', pic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg'},
+      {name: 'Winnie Pooh', pic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg'}
+
+    ];
+
     this.state = {
       name: '',
       hobbies: '',
       aboutme: '',
-      matches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      matches: matchList
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -60,10 +70,10 @@ class Matches extends React.Component {
     return (
       <div>
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-4 col-md-offset-1">
             <ImageUpload />
           </div>
-          <div className="col-md-8">
+          <div className="col-md-7">
             <EditProfile handleChange={this.handleChange}/>
           </div>
         </div>

@@ -175,9 +175,13 @@ h3 {
 }
 
 .get-messages {
-    margin: 30px 0px 0px 50px;
+    margin: 30px 0px 100px 50px;
 }
 
 .matches-list {
     margin-right: 50px;
+}
+
+.item-name {
+    text-align: center;
 }

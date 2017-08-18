@@ -23,6 +23,7 @@ class Login extends React.Component {
   }
 
   handleSubmit(event) {
+    var that = this;
     event.preventDefault();
     $.ajax({
       url: '/login',
@@ -33,6 +34,7 @@ class Login extends React.Component {
       },
       success: ( data ) => {
         //renders new page
+        this.props.history.push('/Profile');
         console.log( data );
       },
       error: ( error ) => {

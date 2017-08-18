@@ -1,7 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {Redirect} from 'react-router';
-import {withRouter} from 'react-router-dom'
 import $ from 'jquery';
 
 class Signup extends React.Component {
@@ -41,7 +38,7 @@ class Signup extends React.Component {
       },
       success: (data) => {
         console.log('SUCCESS:', JSON.parse(data));
-        this.props.history.push('/Test')
+        this.props.history.push('/Test');
       },
       error: (error) => {
         console.log('ERROR:', error);

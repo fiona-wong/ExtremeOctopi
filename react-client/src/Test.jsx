@@ -1,18 +1,19 @@
 import $ from "jquery";
 import React from 'react';
-import {Link} from 'react-router-dom';
 
 class Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    var personality = e.target.personalityTest.value;
-    $.post('/test', (data) => {
-      window.location = "/profile";
+    var params = {};
+    params.personality = e.target.personalityTest.value;
+    $.post('/test', params, (data) => {
+      this.props.history.push('/Profile');
     })
   }
 

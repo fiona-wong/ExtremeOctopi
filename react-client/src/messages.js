@@ -59,12 +59,12 @@ class Messages extends React.Component {
   render() {
     return (
       <div>
-        { this.state.messages.map( ( message, index ) => {
-            return <div key={ index }>{ message.message }</div>;
-          } ) }
-        <br></br>
         <input onChange={ this.onChange.bind( this ) }></input>
         <button onClick={ this.onClick.bind( this ) }>Submit</button>
+        <br></br>
+        { this.state.messages.map( ( message, index ) => {
+          return <div key={ index }>{ message.message }</div>;
+        } ) }
       </div>
     );
   }

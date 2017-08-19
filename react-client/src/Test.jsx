@@ -19,7 +19,7 @@ class Test extends React.Component {
     var params = {};
     params.personality = e.target.personalityTest.value;
     $.post('/test', params, (data) => {
-      this.props.history.push('/Matches');
+      this.props.history.push('/Profile/home/');
     })
   }
 

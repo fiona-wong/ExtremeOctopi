@@ -36,7 +36,7 @@ class Matches extends React.Component {
         maxFriends: 5,
       },
       success: ( data ) => {
-        console.log( 'SUCCESS', data[ 0 ] );
+        console.log( 'SUCCESS', data );
       },
       error: ( error ) => {
         console.log( 'ERROR:', error );

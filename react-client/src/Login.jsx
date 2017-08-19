@@ -2,52 +2,56 @@ import React from 'react';
 import $ from 'jquery';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor( props  ) {
+    super( props );
 
     this.state = {
       username: '',
       password: ''
     };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleInputChange (event) {
+  handleInputChange ( event ) {
     event.preventDefault();
+
     const target = event.target;
     const name = target.name;
-    this.setState({
-      [name]: target.value
-    });
+
+    this.setState( {
+      [ name ]: target.value
+    } );
   }
 
-  handleSubmit(event) {
+  handleSubmit( event ) {
     event.preventDefault();
-    $.ajax({
-      url: '/login',
+
+    $.ajax( {
       method: 'POST',
+      url: '/login',
       data: {
         username: this.state.username,
         password: this.state.password
       },
       success: ( data ) => {
-        //renders new page
-        this.props.history.push('/Profile/home/');
+        console.log( 'SUCCESS:', data );
+
+        var data = JSON.parse( data );
+
+        if ( data ) {
+          this.props.history.push( '/Profile/home/' );
+        }
       },
       error: ( error ) => {
-        //debug
         console.log( 'ERROR: ', error );
       }
-    });
+    } );
   }
 
-  render () {
+  render() {
     return (
       <div className="wrapper">
-        <form className="form-signin" onSubmit={this.handleSubmit}>
+        <form className="form-signin" onSubmit={ this.handleSubmit.bind( this ) }>
         <br/>
-
         <label>
           Username:
           <input
@@ -57,7 +61,8 @@ class Login extends React.Component {
             autoFocus=""
             name="username"
             type="text"
-            onChange={this.handleInputChange} />
+            onChange={ this.handleInputChange.bind( this ) }>
+          </input>
         </label>
         <br />
         <label>
@@ -68,7 +73,8 @@ class Login extends React.Component {
             required=""
             name="password"
             type="password"
-            onChange={this.handleInputChange} />
+            onChange={ this.handleInputChange.bind( this ) }>
+          </input>
         </label>
         <br />
         <button className="button btn btn-lg btn-primary btn-block" type="submit">Login</button>

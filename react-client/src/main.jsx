@@ -1,7 +1,7 @@
 import { Switch, Route } from 'react-router-dom';
 import Profile from './Profile.jsx';
 import Matches from './Matches.jsx';
-import Messages from './messages';
+import Messages from './Messages.jsx';
 import Signup from './Signup.jsx';
 import Login from './Login.jsx';
 import React from 'react';

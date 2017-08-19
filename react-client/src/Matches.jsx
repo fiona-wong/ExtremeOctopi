@@ -10,6 +10,7 @@ class Matches extends React.Component {
 
     this.state = {
       name: '',
+      location: '',
       hobbies: '',
       aboutme: '',
       matches: [
@@ -51,9 +52,7 @@ class Matches extends React.Component {
         method: 'GET',
         url: '/matches',
         success: ( data ) => {
-          console.log( 'SUCCESS', data );
-
-          var data = JSON.parse( data );
+          data = JSON.parse( data );
 
           if ( data ) {
             if ( data.length === 0 ) {
@@ -71,6 +70,24 @@ class Matches extends React.Component {
               matches: data
             } );
           }
+        },
+        error: ( error ) => {
+          console.log( 'ERROR:', error );
+        }
+      });
+    })
+    .then(() => {
+      $.ajax({
+        method: 'GET',
+        url: '/profile',
+        success: ( data ) => {
+          data = JSON.parse( data );
+          this.setState ( {
+            name: data.fullname || '~(>_<~)',
+            location: data.location || '~(>_<~)',
+            hobbies: data.hobbies || '~(>_<~)',
+            aboutme: data.blog || '~(>_<~)'
+          } );
         },
         error: ( error ) => {
           console.log( 'ERROR:', error );
@@ -117,7 +134,7 @@ class Matches extends React.Component {
             <ImageUpload/>
           </div>
           <div className="col-md-7">
-            <EditProfile handleChange={this.handleChange} handleEditProfile={this.handleEditProfile}/>
+            <EditProfile n={this.state.name} l={this.state.location} h={this.state.hobbies} a={this.state.aboutme} handleChange={this.handleChange} handleEditProfile={this.handleEditProfile}/>
           </div>
         </div>
         <div className="row">

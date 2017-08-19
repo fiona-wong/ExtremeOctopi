@@ -102,7 +102,6 @@ app.post( '/matches', ( req, res ) => {
 } );
 
 app.post( '/updateUser', ( req, res ) => {
-  console.log(req.body)
   cookies.verifySession( req, res, ( valid ) => {
     if ( valid ) {
       db.postUpdateUser( {

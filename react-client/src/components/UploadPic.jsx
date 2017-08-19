@@ -20,7 +20,6 @@ class ImageUpload extends React.Component {
     let file = e.target.files[0];
 
     reader.onloadend = () => {
-      console.log(reader.result)
       this.setState({
         file: file,
         imagePreviewUrl: reader.result
@@ -28,7 +27,6 @@ class ImageUpload extends React.Component {
     }
 
     reader.readAsDataURL(file)
-
   }
 
   render() {

@@ -33,8 +33,7 @@ class Login extends React.Component {
       },
       success: ( data ) => {
         //renders new page
-        this.props.history.push('/Profile');
-        console.log( data );
+        this.props.history.push('/Profile/home/');
       },
       error: ( error ) => {
         //debug

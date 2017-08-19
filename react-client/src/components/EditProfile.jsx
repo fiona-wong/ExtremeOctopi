@@ -5,16 +5,16 @@ const EditProfile = (props) => (
   <h3>
     <form onSubmit={props.handleEditProfile} className="form-horizontal">
       <div className="form-group">
-        <label className="control-label col-sm-4" for="name">Name:</label>
+        <label className="control-label col-sm-4" htmlFor="name">Name:</label>
         <input id="name" name="name" type="text" onChange={props.handleChange}/>
       </div>
       <div className="form-group">
-        <label className="control-label col-sm-4" for="hobbies">Hobbies/Interests:</label>
-        <input id="hobbies" name="name" type="text" onChange={props.handleChange}/>
+        <label className="control-label col-sm-4" htmlFor="hobbies">Hobbies/Interests:</label>
+        <input id="hobbies" name="hobbies" type="text" onChange={props.handleChange}/>
       </div>
       <div className="form-group">
-        <label className="control-label col-sm-4" for="about">About Me:</label>
-        <input id="about" name="name" type="text" onChange={props.handleChange}/>
+        <label className="control-label col-sm-4" htmlFor="about">About Me:</label>
+        <input id="about" name="aboutme" type="text" onChange={props.handleChange}/>
       </div>
 
       <div className="form-group">

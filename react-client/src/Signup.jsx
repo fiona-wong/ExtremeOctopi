@@ -22,6 +22,8 @@ class Signup extends React.Component {
     this.setState({
       [name]: target.value
     });
+
+
   }
 
   handleSubmit(event) {

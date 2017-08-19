@@ -24,8 +24,6 @@ class Messages extends React.Component {
         var data = JSON.parse( data );
 
         if ( data ) {
-
-          console.log( data.received );
           this.setState( {
             messages: data.received
           } );

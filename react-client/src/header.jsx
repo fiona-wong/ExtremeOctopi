@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
+import {compile} from 'path-to-regexp';
+
+const MY_ROUTE = '/Profile/:userId/';
+const toPath = compile(MY_ROUTE);
 
 const Header = () => (
 
@@ -14,7 +18,7 @@ const Header = () => (
     <li className="nav-item"><Link to='/Signup'>Signup</Link></li>
     <li className="nav-item"><Link to='/Test'>Test</Link></li>
     <li className="nav-item"><Link to='/Login'>Login</Link></li>
-    <li className="nav-item"><Link to='/Profile'>Profile</Link></li>
+    <li className="nav-item"><Link to={toPath({ userId: 'home'})}>Profile</Link></li>
     <li className="nav-item"><Link to='/Matches'>Matches</Link></li>
     <li className="nav-item"><Link to='/Messages'>Messages</Link></li>
   </ul>

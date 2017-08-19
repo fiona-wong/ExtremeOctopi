@@ -23,7 +23,6 @@ class Login extends React.Component {
   }
 
   handleSubmit(event) {
-    var that = this;
     event.preventDefault();
     $.ajax({
       url: '/login',

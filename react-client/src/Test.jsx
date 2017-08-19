@@ -8,12 +8,18 @@ class Test extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    $.get('/user', (username) => {
+      console.log(username);
+    })
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     var params = {};
     params.personality = e.target.personalityTest.value;
     $.post('/test', params, (data) => {
-      this.props.history.push('/Profile');
+      this.props.history.push('/Matches');
     })
   }
 
@@ -35,7 +41,7 @@ class Test extends React.Component {
         <div className="center">
           <form onSubmit={this.handleSubmit}>
             Your test result:&nbsp;&nbsp;
-            <input type="text" name="personalityTest" placeholder="e.g. entj"/>
+            <input required type="text" name="personalityTest" placeholder="e.g. entj"/>
             <button>Submit</button>
           </form>
         </div>

@@ -424,8 +424,9 @@ var postUpdateUser = function (userInfo, callback) {
         },
         {
           $set: {
+            fullname: userInfo.fullname,
             blog: userInfo.blog,
-            hobbies: userIngo.hobbies,
+            hobbies: userInfo.hobbies,
             img: userInfo.image
           }
         },

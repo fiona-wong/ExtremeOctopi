@@ -27,6 +27,7 @@ class Matches extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleEditProfile = this.handleEditProfile.bind(this);
   }
 
   // componentDidMount () {
@@ -53,7 +54,13 @@ class Matches extends React.Component {
   handleEditProfile(event) {
     event.preventDefault();
 
+    $.post('updateUser', this.state, (res) => {
+      if(res === 'Success') {
 
+      } else {
+        console.log('db not updated');
+      }
+    })
   }
 
   handleChange(event) {
@@ -74,7 +81,7 @@ class Matches extends React.Component {
             <ImageUpload />
           </div>
           <div className="col-md-7">
-            <EditProfile handleChange={this.handleChange}/>
+            <EditProfile handleChange={this.handleChange} handleEditProfile={this.handleEditProfile}/>
           </div>
         </div>
         <div className="row">

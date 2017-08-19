@@ -7,7 +7,7 @@ const MatchesList = ( props ) => (
     <div>
       <ul className="list-group">
         { props.matches.map( ( match, index ) => (
-            <MatchItem key={ index } match={ match }/> )
+            <MatchItem onClick={props.showMatchProfile} key={ index } match={ match }/> )
           ) 
         }
       </ul>

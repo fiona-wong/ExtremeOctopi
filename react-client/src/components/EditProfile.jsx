@@ -8,6 +8,10 @@ const EditProfile = ( props ) => (
         <input id="name" name="name" type="text" onChange={ props.handleChange }/>
       </div>
       <div className="form-group">
+        <label className="control-label col-sm-4" htmlFor="name">Location:</label>
+        <input id="location" name="location" type="text" onChange={ props.handleChange }/>
+      </div>
+      <div className="form-group">
         <label className="control-label col-sm-4" htmlFor="hobbies">Hobbies:</label>
         <input id="hobbies" name="hobbies" type="text" onChange={ props.handleChange }/>
       </div>

@@ -102,10 +102,12 @@ app.post( '/matches', ( req, res ) => {
 } );
 
 app.post( '/updateUser', ( req, res ) => {
+  console.log(req.body)
   cookies.verifySession( req, res, ( valid ) => {
     if ( valid ) {
       db.postUpdateUser( {
         username: req.session.username,
+        location: req.body.location,
         fullname: req.body.name,
         hobbies: req.body.hobbies,
         blog: req.body.aboutme

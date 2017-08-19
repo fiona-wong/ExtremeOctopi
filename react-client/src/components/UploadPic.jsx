@@ -28,6 +28,7 @@ class ImageUpload extends React.Component {
     }
 
     reader.readAsDataURL(file)
+
   }
 
   render() {

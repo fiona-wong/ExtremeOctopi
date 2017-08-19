@@ -1,16 +1,15 @@
 body {
-
-	background: #FFF3E3;
-	color: #262B53;
-	position: relative;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-
+    background: #FFF3E3;
+    color: #262B53;
+    position: relative;
+    /*	background-image: url("logo.png");
+      background-repeat: no-repeat;*/
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1 {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
 
 .wrapper {
     margin-top: 80px;
@@ -44,10 +43,6 @@ h1 {
     /*z-index: 2;*/
 /*}*/
 
-=======
-h1 {
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
->>>>>>> changled style
 }
 
 input[type="text"] {
@@ -56,47 +51,10 @@ input[type="text"] {
     border-bottom-right-radius: 0;
 }
 
-<<<<<<< HEAD
 input[type="password"] {
     margin-bottom: 20px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-=======
-.form-signin {
-  max-width: 380px;
-  padding: 15px 35px 45px;
-  margin: 0 auto;
-  background-color: rgba(255, 255, 255, .70);
-  border: 2px solid rgb(38, 43, 83); 
-  border-radius: 25px; 
-  box-shadow: 2px 2px 2px #6D5A7F;
-
-
-  .form-signin-heading,
-	.checkbox {
-	  margin-bottom: 30px;
-	}
-
-	.form-control {
-	  position: relative;
-	  font-size: 16px;
-	  height: auto;
-	  padding: 10px;
-
-	}
-
-	input[type="text"] {
-	  margin-bottom: -1px;
-	  border-bottom-left-radius: 0;
-	  border-bottom-right-radius: 0;
-	}
-
-	input[type="password"] {
-	  margin-bottom: 20px;
-	  border-top-left-radius: 0;
-	  border-top-right-radius: 0;
-	}
->>>>>>> changled style
 }
 
 
@@ -189,7 +147,7 @@ h3 {
 }
 
 .center {
-  text-align: center;
+    text-align: center;
 }
 
 .center-text {

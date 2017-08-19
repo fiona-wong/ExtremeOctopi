@@ -23,11 +23,11 @@ class Matches extends React.Component {
     };
 
     this.postMatches();
+
+    this.getMatches();
   }
 
   postMatches() {
-    Matches = this;
-
     $.ajax( {
       method: 'POST',
       url: '/matches',
@@ -37,8 +37,6 @@ class Matches extends React.Component {
       },
       success: ( data ) => {
         console.log( 'SUCCESS', data[ 0 ] );
-
-        Matches.getMatches();
       },
       error: ( error ) => {
         console.log( 'ERROR:', error );

@@ -6,8 +6,6 @@ class Messages extends React.Component {
     super( props );
 
     this.state = {
-      user: '',
-      match: '',
       message: '',
       messages: []
     }
@@ -19,11 +17,13 @@ class Messages extends React.Component {
     $.ajax( {
       method: 'GET',
       url: '/message',
-      data: { user: this.state.user },
       success: ( data ) => {
-        console.log( 'SUCCESS:', data );
+        console.log( 'SUCCESS:', JSON.parse(data).received );
 
-        this.setState( { messages: JSON.parse( data ).received } );
+        this.setState({
+          messages: JSON.parse(data).received
+        });
+        console.log(this.state);
       },
       error: ( error ) => {
         console.log( 'ERROR:', error );
@@ -60,7 +60,7 @@ class Messages extends React.Component {
     return (
       <div>
         { this.state.messages.map( ( message, index ) => {
-            return <div key={ index }>{ message }</div>;
+            return <div key={ index }>{ message.message }</div>;
           } ) }
         <br></br>
         <input onChange={ this.onChange.bind( this ) }></input>

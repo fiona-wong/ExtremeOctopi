@@ -119,10 +119,15 @@ app.post('/updateUser', (req, res) => {
 })
 
 app.post('/message', (req, res) => {
-  db.postMessage(req.body.sender, req.body.receiver, req.body.message, () => {
-    res.status(201).end();
-  });
-})
+  cookies.verifySession(req, res, (valid) => {
+    if (valid) {
+      console.log(req.body.receiver, 'message');
+      db.postMessage(req.session.username, req.session.username, req.body.message, () => {
+        res.status(201).end();
+      });
+    }
+  })
+});
 
 app.get('/profile', (req, res) => {
   db.getProfile(req.body.username, (profile) => {
@@ -137,10 +142,14 @@ app.get('/matches', (req, res) => {
 })
 
 app.get('/message', (req, res) => {
-  db.getMessages(req.body.username, (messageObj) => {
-    res.status(200).send(JSON.stringify(messageObj));
+  cookies.verifySession(req, res, (valid) => {
+    if (valid) {
+      db.getMessages(req.session.username, (messageObj) => {
+        res.status(200).send(JSON.stringify(messageObj));
+      })
+    }
   })
-})
+});
 
 //keep this at last
 //redirects 404 to index.html

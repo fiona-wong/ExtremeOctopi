@@ -30,70 +30,24 @@ class Matches extends React.Component {
   }
 
   componentDidMount() {
-    Promise.resolve()
-    .then(() => {
-      $.ajax( {
-      method: 'POST',
-      url: '/matches',
-      data: {
-        numberToReturn: 5,
-        maxFriends: 5,
-      },
+    $.ajax({
+      method: 'GET',
+      url: '/profile',
       success: ( data ) => {
-        console.log( 'SUCCESS', data );
+        data = JSON.parse( data );
+        console.log(data)
+        this.setState ( {
+          name: data.fullname || '~(>_<~)',
+          location: data.location || '~(>_<~)',
+          hobbies: data.hobbies || '~(>_<~)',
+          aboutme: data.blog || '~(>_<~)',
+          matches: data.matches
+        } );
       },
       error: ( error ) => {
         console.log( 'ERROR:', error );
       }
-    } );
-    })
-    .then(() => {
-      $.ajax({
-        method: 'GET',
-        url: '/matches',
-        success: ( data ) => {
-          data = JSON.parse( data );
-
-          if ( data ) {
-            if ( data.length === 0 ) {
-              data = [
-                { name: '｡ﾟ(*´□`)ﾟ｡', pic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg' },
-                { name: '｡ﾟ(*´□`)ﾟ｡', pic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg' },
-                { name: '｡ﾟ(*´□`)ﾟ｡', pic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg' },
-                { name: '｡ﾟ(*´□`)ﾟ｡', pic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg' },
-                { name: '｡ﾟ(*´□`)ﾟ｡', pic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg' },
-                { name: '｡ﾟ(*´□`)ﾟ｡', pic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg' }
-              ]
-            }
-
-            this.setState( {
-              matches: data
-            } );
-          }
-        },
-        error: ( error ) => {
-          console.log( 'ERROR:', error );
-        }
-      });
-    })
-    .then(() => {
-      $.ajax({
-        method: 'GET',
-        url: '/profile',
-        success: ( data ) => {
-          data = JSON.parse( data );
-          this.setState ( {
-            name: data.fullname || '~(>_<~)',
-            location: data.location || '~(>_<~)',
-            hobbies: data.hobbies || '~(>_<~)',
-            aboutme: data.blog || '~(>_<~)'
-          } );
-        },
-        error: ( error ) => {
-          console.log( 'ERROR:', error );
-        }
-      });
-    })
+    });
   }
 
   handleEditProfile( event ) {

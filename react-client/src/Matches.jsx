@@ -100,7 +100,7 @@ class Matches extends React.Component {
     event.preventDefault();
 
     $.post( 'updateUser', this.state, ( data ) => {
-      var data  = JSON.parse( data );
+      data  = JSON.parse(data);
 
       if( data ) {
         console.log( 'SUCCESS:', data );

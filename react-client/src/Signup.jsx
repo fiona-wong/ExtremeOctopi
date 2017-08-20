@@ -58,7 +58,7 @@ class Signup extends React.Component {
             <input
               size="35"
               className="form-control"
-              required
+              required="true"
               autoFocus=""
               name="fullname"
               type="text"
@@ -70,7 +70,7 @@ class Signup extends React.Component {
             <input
               size="35"
               className="form-control"
-              required
+              required="true"
               autoFocus=""
               name="email"
               type="text"
@@ -82,7 +82,7 @@ class Signup extends React.Component {
             <input
               size="35"
               className="form-control"
-              required
+              required="true"
               autoFocus=""
               name="username"
               type="text"
@@ -94,7 +94,7 @@ class Signup extends React.Component {
             <input
               size="35"
               className="form-control"
-              required
+              required="true"
               autoFocus=""
               name="password"
               type="password"

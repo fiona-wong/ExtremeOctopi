@@ -14,6 +14,24 @@ db.once('open', () => {
   console.log('mongoose connected successfully');
 });
 
+var mostCompatible = {
+  infp: ['enfj', 'entj'],
+  enfp: ['infj', 'intj'],
+  infj: ['enfp', 'entp'],
+  enfj: ['infp', 'isfp'],
+  intj: ['enfp', 'entp'],
+  entj: ['infp', 'intp'],
+  intp: ['entj', 'estj'],
+  isfp: ['enfj', 'esfj', 'estj'],
+  esfp: ['isfj', 'istj'],
+  istp: ['enfj', 'esfj', 'estj'],
+  estp: ['enfj', 'isfj', 'istj'],
+  isfj: ['enfj', 'esfp', 'estp'],
+  esfj: ['enfj', 'isfp', 'istp'],
+  istj: ['enfj', 'esfp', 'estp'],
+  estj: ['enfj', 'intp', 'esfp', 'estp']
+};
+
 var mbti = {
   infp: {
     infp: 30,
@@ -463,16 +481,32 @@ var postTestResults = function (user, results, callback) {
     if (doc) {
       User.update({username: user},
         {$set: {testResults: results}}, {upsert: true}, () => {
-          postMatches(user, results, () => {
-            callback();
+          User.find({}, (err, users) => {
+            callback(users);
           })
-        });
+        })
     } else {
       console.log('User not found');
       callback(null);
     }
   })
 };
+
+// var postTestResults = function (user, results, callback) {
+//   User.findOne({username: user}, function (err, doc) {
+//     if (doc) {
+//       User.update({username: user},
+//         {$set: {testResults: results}}, {upsert: true}, () => {
+//           postMatches(user, results, () => {
+//             callback();
+//           })
+//         });
+//     } else {
+//       console.log('User not found');
+//       callback(null);
+//     }
+//   })
+// };
 
 // senderName = sender, receiverName = receiver, messageText = message
 var postMessage = function (senderName, receiverName, messageText, callback) {
@@ -489,37 +523,54 @@ var postMessage = function (senderName, receiverName, messageText, callback) {
 };
 
 // user1 = username that we want results for, matchInfo = a list that matches all the other users
-var postMatches = function (user1, userResults, callback) {
-  User.find({}, {username: 1, testResults: 1}, (err, users) => {
-    async.forEach(users, function (user2, iterate_callback) {
-      if (user1 !== user2.username && user2.testResults !== undefined) {
-        var test1 = new Test({
-          username: user1,
-          match: user2.username,
-          compatability: mbti[userResults][user2.testResults],
-          alreadyMatches: false
-        });
-
-        test1.save(() => {
-          var test2 = new Test({
-            username: user2.username,
-            match: user1,
-            compatability: mbti[user2.testResults][userResults],
-            alreadyMatches: false
-          });
-
-          test2.save(() => {
-            iterate_callback();
-          });
-        })
-      } else {
-        iterate_callback();
-      }
-    }, function (err) {
-      return callback();
-    })
-  })
+var postMatches = function(user, matchesList, callback) {
+  User.findOne({username: user}, (err, doc) => {
+    if (doc) {
+      User.update({username: user},
+        {$set: {matches: matchesList}},
+        {
+          upsert: true
+        },
+        (err, data) => callback(data)
+      );
+    } else {
+      callback(false);
+    }
+  });
 };
+
+//}
+// var postMatches = function (user1, userResults, callback) {
+//   User.find({}, {username: 1, testResults: 1}, (err, users) => {
+//     async.forEach(users, function (user2, iterate_callback) {
+//       if (user1 !== user2.username && user2.testResults !== undefined) {
+//         var test1 = new Test({
+//           username: user1,
+//           match: user2.username,
+//           compatability: mbti[userResults][user2.testResults],
+//           alreadyMatches: false
+//         });
+
+//         test1.save(() => {
+//           var test2 = new Test({
+//             username: user2.username,
+//             match: user1,
+//             compatability: mbti[user2.testResults][userResults],
+//             alreadyMatches: false
+//           });
+
+//           test2.save(() => {
+//             iterate_callback();
+//           });
+//         })
+//       } else {
+//         iterate_callback();
+//       }
+//     }, function (err) {
+//       return callback();
+//     })
+//   })
+// };
 
 var postAddFriend = function (user1, user2, callback) {
   Test.findOne({username: user1}, function (err, doc) {

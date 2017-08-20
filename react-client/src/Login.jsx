@@ -35,10 +35,10 @@ class Login extends React.Component {
       success: ( data ) => {
         console.log( 'SUCCESS:', data );
 
-        var data = JSON.parse( data );
+        data = JSON.parse( data );
 
         if ( data ) {
-          this.props.history.push( '/Profile/home/' );
+          this.props.history.push( '/Matches/home/' );
         }
       },
       error: ( error ) => {

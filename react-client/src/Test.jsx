@@ -10,11 +10,11 @@ class Test extends React.Component {
     event.preventDefault();
 
     var parameters = {
-      testResults: event.target.personalityTest.value
+      testResults: event.target.personalityTest.value.toLowerCase()
     };
 
-    $.post( '/test', parameters, ( data ) => {
-      this.props.history.push( '/Profile/home/' );
+    $.post( '/test', parameters, () => {
+      this.props.history.push( '/Profile/home' );
     } );
   }
 

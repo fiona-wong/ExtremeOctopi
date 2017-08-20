@@ -33,8 +33,6 @@ class Login extends React.Component {
         password: this.state.password
       },
       success: ( data ) => {
-        console.log( 'SUCCESS:', data );
-
         data = JSON.parse( data );
 
         if ( data ) {

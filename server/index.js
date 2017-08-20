@@ -109,15 +109,22 @@ var mostCompatible = {
 
 app.post( '/test', ( req, res ) => {
   db.postTestResults( req.session.username, req.body.testResults, allUsers => {
-    console.log(allUsers)
     var matchesList = [];
     allUsers.forEach(user => {
       if (user.username !== req.session.username && mostCompatible[req.body.testResults].includes(user.testResults)) {
-        matchesList.push(user);
+        var friend = {
+          fusername: user.username,
+          ffullname: user.fullname,
+          femail: user.email,
+          flocation: user.location,
+          fhobbies: user.hobbies,
+          fabout: user.blog,
+          fpic: user.img
+        }
+        matchesList.push(friend);
       }
     })
     db.postMatches(req.session.username, matchesList, (data) => {
-      console.log(data)
       res.status( 201 );
     })
   })

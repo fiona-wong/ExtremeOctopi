@@ -25,7 +25,7 @@ class Matches extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleEditProfile = this.handleEditProfile.bind(this);
-    this.showMatchProfile = this.showMatchProfile.bind(this);
+    this.lookupProfile = this.lookupProfile.bind(this);
 
   }
 
@@ -35,7 +35,6 @@ class Matches extends React.Component {
       url: '/profile',
       success: ( data ) => {
         data = JSON.parse( data );
-        console.log(data)
         this.setState ( {
           name: data.fullname || '~(>_<~)',
           location: data.location || '~(>_<~)',
@@ -53,15 +52,9 @@ class Matches extends React.Component {
   handleEditProfile( event ) {
     event.preventDefault();
 
-    $.post( 'updateUser', this.state, ( data ) => {
+    $.post('updateUser', this.state, ( data ) => {
       data  = JSON.parse(data);
-
-      if( data ) {
-        console.log( 'SUCCESS:', data );
-      } else {
-        console.log( 'ERROR:', data );
-      }
-    } );
+    });
   }
 
   handleChange( event ) {
@@ -75,7 +68,7 @@ class Matches extends React.Component {
     } );
   }
 
-  showMatchProfile (event) {
+  lookupProfile (event) {
     event.preventDefault();
     console.log('clicked', event.target)
   }
@@ -93,7 +86,7 @@ class Matches extends React.Component {
         </div>
         <div className="row">
           <div className="matches-list col-lg-offset-1">
-            <MatchesList matches={ this.state.matches } showMatchProfile={this.showMatchProfile}/>
+            <MatchesList matches={ this.state.matches } lookupProfile={this.lookupProfile}/>
           </div>
         </div>
         <div className="row get-messages">

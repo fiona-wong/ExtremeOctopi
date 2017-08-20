@@ -1,12 +1,12 @@
 import React from 'react';
 
 const MatchItem = ( props ) => (
-  <div className="list-group-item">
+  <div onClick={props.lookupProfile} className="list-group-item">
     <div className="row">
-      <img className="imgPreview" src={ props.match.img }/>
+      <img className="imgPreview" src={props.match.fpic}/>
     </div>
     <div className="row item-name">
-      { props.match.fullname }
+      {props.match.fusername}
     </div>
   </div>
 );

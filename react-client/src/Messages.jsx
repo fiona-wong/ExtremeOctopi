@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import MessagesList from './components/MessagesList.jsx';
 
 class Messages extends React.Component {
   constructor( props ) {
@@ -39,12 +40,11 @@ class Messages extends React.Component {
       });
     } else {
       $.post('/friendMessages', {username: user}, (data) => {
-        if(data) {
-          var data = JSON.parse(data);
-          console.log(data.received);
-          this.setState ({
-            messages: data.received
-          })
+        if ( data ) {
+          this.setState( {
+            messages: data.received,
+            match: data.sender
+          } );
         }
       })
     }
@@ -99,15 +99,22 @@ class Messages extends React.Component {
   render() {
     return (
       <div>
+
         <h1>{this.user}</h1>
 
+        <input onChange={ this.changeMatch.bind( this ) }  placeholder="Chat with..."></input>
+        <br></br>
+
         <input onChange={ this.changeMessage.bind( this ) }></input>
-        <button onClick={ this.onClick.bind( this ) }>Submit</button>
+        <button onClick={ this.onClick.bind( this ) }>Start Chat</button>
         <br></br>
         <br></br>
-        { this.state.messages.map( ( message, index ) => {
-          return <div key={ index }>{ message.sender + ': ' + message.message }</div>;
-        } ) }
+
+        { this.state.messages.map( ( message, index ) => (
+          <MessagesList key={index} message={message}/>
+
+        )) }
+
       </div>
     );
   }

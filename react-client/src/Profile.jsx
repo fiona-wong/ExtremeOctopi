@@ -25,7 +25,6 @@ class Profile extends React.Component {
 	}
 
 	loadProfile(user) {
-
     if(user === 'home') {
       $.ajax( {
         method: 'GET',
@@ -49,7 +48,6 @@ class Profile extends React.Component {
       $.post( '/friendProfile', {username: user}, (data) =>
       {
         var data = JSON.parse( data );
-        console.log(data);
         this.setState ( {
           profilePic: data.img || 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg',
           username: data.username || '~(>_<~)',

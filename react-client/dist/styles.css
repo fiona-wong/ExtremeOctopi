@@ -176,7 +176,7 @@ h3 {
 }
 
 .get-messages {
-    margin: 30px 0px 100px 50px;
+  margin: 30px 0px 200px 500px;
 }
 
 .matches-list {
@@ -189,4 +189,56 @@ h3 {
 
 textarea { 
   font-size: 16px;
+}
+
+.messages-button {
+  background-color: #6D5A7F;
+  color: #FFF;
+  border: 4px #262B53;
+  width: 500px;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+
+.talk-bubble {
+  margin: 40px;
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: auto;
+  background-color: #262B53;
+  border-radius: 15px;
+}
+.tri-right.border.left-top:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -40px;
+  right: auto;
+  top: -8px;
+  bottom: auto;
+  border: 32px solid;
+  border-color: #666 transparent transparent transparent;
+}
+.tri-right.left-top:after{
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -20px;
+  right: auto;
+  top: 0px;
+  bottom: auto;
+  border: 22px solid;
+  border-color: #262B53 transparent transparent transparent;
+}
+
+.talktext{
+  color: #FFB985;
+  padding: 1em;
+  text-align: left;
+  line-height: 1.5em;
 }

@@ -90,7 +90,7 @@ class Matches extends React.Component {
           </div>
         </div>
         <div className="row get-messages">
-          <button>Click for Messages!</button>
+          <button className="messages-button">Messages Inbox</button>
         </div>
       </div>
     )

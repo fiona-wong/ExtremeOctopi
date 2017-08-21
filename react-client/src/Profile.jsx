@@ -74,7 +74,7 @@ class Profile extends React.Component {
     return (
       <div className="container">
   			  <img className="img-circle" src={ this.state.profilePic }></img>
-          <div className="col-xs-6 center-text">
+          <div className="col-xs-10 center-text">
       	    <h1>{ this.state.fullname }'s Zone</h1>
             <br/>
             <strong>Username:&nbsp;</strong>{ this.state.username }

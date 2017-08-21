@@ -77,7 +77,7 @@ class Matches extends React.Component {
     return (
       <div>
         <div className="row">
-          <div className="col-md-4 col-md-offset-1">
+          <div className="col-md-2 col-md-offset-1">
             <ImageUpload/>
           </div>
           <div className="col-md-7">

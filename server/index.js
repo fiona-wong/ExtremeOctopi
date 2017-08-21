@@ -16,25 +16,32 @@ app.get( '/profile', ( req, res ) => {
   cookies.verifySession( req, res, ( valid ) => {
     if ( valid ) {
       db.getProfile( req.session.username, ( profile ) => {
-        res.status( 200 ).end( JSON.stringify( profile ) );
+        res.status( 200 ).send( JSON.stringify( profile ) );
       } );
     } else {
-      res.status( 200 ).end( JSON.stringify( false ) );
+      res.status( 200 ).send( JSON.stringify( false ) );
     }
   } );
 } );
 
-app.get( '/friendProfile', ( req, res ) => {
-  cookies.verifySession( req, res, ( valid ) => {
-    if ( valid ) {
-      db.getProfile( req.body.username, ( profile ) => {
-        res.status( 200 ).end( JSON.stringify( profile ) );
-      } );
-    } else {
-      res.status( 200 ).end( JSON.stringify( false ) );
-    }
+app.post( '/friendProfile', ( req, res ) => {
+  console.log(req.body);
+  db.getProfile( req.body.username, ( profile ) => {
+    res.status( 200 ).send( JSON.stringify( profile ) );
   } );
-} );
+});
+
+// app.get( '/friendProfile', ( req, res ) => {
+//   cookies.verifySession( req, res, ( valid ) => {
+//     if ( valid ) {
+//       db.getProfile( req.body.username, ( profile ) => {
+//         res.status( 200 ).end( JSON.stringify( profile ) );
+//       } );
+//     } else {
+//       res.status( 200 ).end( JSON.stringify( false ) );
+//     }
+//   } );
+// } );
 
 app.get( '/matches', ( req, res ) => {
   cookies.verifySession( req, res, ( valid ) => {
@@ -111,7 +118,9 @@ app.post( '/test', ( req, res ) => {
   db.postTestResults( req.session.username, req.body.testResults, allUsers => {
     var matchesList = [];
     allUsers.forEach(user => {
-      if (user.username !== req.session.username && mostCompatible[req.body.testResults].includes(user.testResults)) {
+      console.log(req.body.testResults);
+      console.log(mostCompatible[req.body.testResults]);
+      if (user.username !== req.session.username && mostCompatible[req.body.testResults].indexOf(user.testResults) !== -1) {
         var friend = {
           fusername: user.username,
           ffullname: user.fullname,
@@ -120,12 +129,12 @@ app.post( '/test', ( req, res ) => {
           fhobbies: user.hobbies,
           fabout: user.blog,
           fpic: user.img
-        }
+        };
         matchesList.push(friend);
       }
-    })
+    });
     db.postMatches(req.session.username, matchesList, (data) => {
-      res.status( 201 );
+      res.status( 201 ).send(data);
     })
   })
 });

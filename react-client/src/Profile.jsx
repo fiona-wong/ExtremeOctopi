@@ -4,6 +4,8 @@ class Profile extends React.Component {
 	constructor( props ) {
   	super( props );
 
+  	console.log(props);
+
   	var regexp = /^\/Profile\/(.*)\/$/;
   	var user = props.history.location.pathname.match( regexp )[ 1 ];
 
@@ -14,16 +16,39 @@ class Profile extends React.Component {
   		location: '(ノ°Д°）ノ︵ ┻━┻ | Please log in',
   		hobbies: '(ノ°Д°）ノ︵ ┻━┻ | Please log in',
   		aboutme: '(ノ°Д°）ノ︵ ┻━┻ | Please log in',
-  	}
+  	};
+
+  	this.loadProfile(user);
 
 	}
 
-  componentDidMount () {
-    $.ajax( {
-      method: 'GET',
-      url: '/profile',
-      success: ( data ) => {
+	loadProfile(user) {
+    console.log(user);
+
+    if(user === 'home') {
+      $.ajax( {
+        method: 'GET',
+        url: '/profile',
+        success: ( data ) => {
+          var data = JSON.parse( data );
+          this.setState ( {
+            profilePic: data.img || 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg',
+            username: data.username || '~(>_<~)',
+            fullname: data.fullname || '~(>_<~)',
+            location: data.location || '~(>_<~)',
+            hobbies: data.hobbies || '~(>_<~)',
+            aboutme: data.blog || '~(>_<~)'
+          } );
+        },
+        error: ( error ) => {
+          console.log( 'ERROR:', error );
+        }
+      } );
+    } else {
+      $.post( '/friendProfile', {username: user}, (data) =>
+      {
         var data = JSON.parse( data );
+        console.log(data);
         this.setState ( {
           profilePic: data.img || 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg',
           username: data.username || '~(>_<~)',
@@ -32,11 +57,12 @@ class Profile extends React.Component {
           hobbies: data.hobbies || '~(>_<~)',
           aboutme: data.blog || '~(>_<~)'
         } );
-      },
-      error: ( error ) => {
-        console.log( 'ERROR:', error );
-      }
-    } );
+      });
+    }
+  }
+
+  componentDidMount () {
+
   }
 
   render () {

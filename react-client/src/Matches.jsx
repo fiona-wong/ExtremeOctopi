@@ -69,8 +69,10 @@ class Matches extends React.Component {
   }
 
   lookupProfile (event) {
-    event.preventDefault();
-    console.log('clicked', event.target)
+    console.log('clicked', event);
+
+    this.props.history.push( '/Profile/' + event + '/' );
+
   }
 
   render() {

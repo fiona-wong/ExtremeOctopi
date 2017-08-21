@@ -16,18 +16,14 @@ class Profile extends React.Component {
   		aboutme: '(ノ°Д°）ノ︵ ┻━┻ | Please log in',
   	}
 
-    this.getProfile();
 	}
 
-  getProfile() {
+  componentDidMount () {
     $.ajax( {
       method: 'GET',
       url: '/profile',
       success: ( data ) => {
-        console.log( 'SUCCESS:', data );
-
         var data = JSON.parse( data );
-
         this.setState ( {
           profilePic: data.img || 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg',
           username: data.username || '~(>_<~)',

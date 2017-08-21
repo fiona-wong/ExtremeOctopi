@@ -39,7 +39,6 @@ class Signup extends React.Component {
         password: this.state.password
       },
       success: (data) => {
-        console.log('SUCCESS:', JSON.parse(data));
         this.props.history.push('/Test');
       },
       error: (error) => {
@@ -58,7 +57,7 @@ class Signup extends React.Component {
             <input
               size="35"
               className="form-control"
-              required
+              required="true"
               autoFocus=""
               name="fullname"
               type="text"
@@ -70,7 +69,7 @@ class Signup extends React.Component {
             <input
               size="35"
               className="form-control"
-              required
+              required="true"
               autoFocus=""
               name="email"
               type="text"
@@ -82,7 +81,7 @@ class Signup extends React.Component {
             <input
               size="35"
               className="form-control"
-              required
+              required="true"
               autoFocus=""
               name="username"
               type="text"
@@ -94,7 +93,7 @@ class Signup extends React.Component {
             <input
               size="35"
               className="form-control"
-              required
+              required="true"
               autoFocus=""
               name="password"
               type="password"

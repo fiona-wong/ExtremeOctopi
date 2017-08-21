@@ -89,11 +89,46 @@ app.post( '/login', ( req, res ) => {
   } );
 } );
 
+var mostCompatible = {
+  infp: ['enfj', 'entj'],
+  enfp: ['infj', 'intj'],
+  infj: ['enfp', 'entp'],
+  enfj: ['infp', 'isfp'],
+  intj: ['enfp', 'entp'],
+  entj: ['infp', 'intp'],
+  intp: ['entj', 'estj'],
+  isfp: ['enfj', 'esfj', 'estj'],
+  esfp: ['isfj', 'istj'],
+  istp: ['enfj', 'esfj', 'estj'],
+  estp: ['enfj', 'isfj', 'istj'],
+  isfj: ['enfj', 'esfp', 'estp'],
+  esfj: ['enfj', 'isfp', 'istp'],
+  istj: ['enfj', 'esfp', 'estp'],
+  estj: ['enfj', 'intp', 'esfp', 'estp']
+};
+
 app.post( '/test', ( req, res ) => {
-  db.postTestResults( req.session.username, req.body.testResults, () => {
-    res.status( 201 ).end();
-  } );
-} );
+  db.postTestResults( req.session.username, req.body.testResults, allUsers => {
+    var matchesList = [];
+    allUsers.forEach(user => {
+      if (user.username !== req.session.username && mostCompatible[req.body.testResults].includes(user.testResults)) {
+        var friend = {
+          fusername: user.username,
+          ffullname: user.fullname,
+          femail: user.email,
+          flocation: user.location,
+          fhobbies: user.hobbies,
+          fabout: user.blog,
+          fpic: user.img
+        }
+        matchesList.push(friend);
+      }
+    })
+    db.postMatches(req.session.username, matchesList, (data) => {
+      res.status( 201 );
+    })
+  })
+});
 
 app.post( '/matches', ( req, res ) => {
   db.postGetMatches( req.session.username, req.body.numberToReturn, req.body.maxFriends, ( results ) => {
@@ -106,6 +141,7 @@ app.post( '/updateUser', ( req, res ) => {
     if ( valid ) {
       db.postUpdateUser( {
         username: req.session.username,
+        location: req.body.location,
         fullname: req.body.name,
         hobbies: req.body.hobbies,
         blog: req.body.aboutme
@@ -137,3 +173,4 @@ app.listen( 8080, function () {
 } );
 
 module.exports = app;
+

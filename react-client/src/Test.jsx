@@ -14,7 +14,7 @@ class Test extends React.Component {
     };
 
     $.post( '/test', parameters, () => {
-      this.props.history.push( '/Profile/home' );
+      this.props.history.push( '/Profile/home/' );
     } );
   }
 

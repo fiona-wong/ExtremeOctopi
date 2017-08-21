@@ -14,7 +14,7 @@ class Messages extends React.Component {
       message: '',
       messages: []
     };
-    this.updateMessages.bind(this)
+
     this.updateMessages(this.user);
   }
 
@@ -40,11 +40,12 @@ class Messages extends React.Component {
       });
     } else {
       $.post('/friendMessages', {username: user}, (data) => {
-        if ( data ) {
-          this.setState( {
-            messages: data.received,
-            match: data.sender
-          } );
+        if(data) {
+          var data = JSON.parse(data);
+          console.log(data.received);
+          this.setState ({
+            messages: data.received
+          })
         }
       })
     }
@@ -99,26 +100,16 @@ class Messages extends React.Component {
   render() {
     return (
       <div>
-
-        <h1>{this.user}</h1>
-
-      <div className="item-name">
-
-        <input onChange={ this.changeMatch.bind( this ) }  placeholder="Chat with..."></input>
-        <br></br>
-
-        <input onChange={ this.changeMessage.bind( this ) }></input>
+        <h1>Messages</h1>
         <br/>
-        <button onClick={ this.onClick.bind( this ) }>Start Chat</button>
-        </div>
+        <br/>
+        <input onChange={ this.changeMessage.bind( this ) }></input>
+        <button onClick={ this.onClick.bind( this ) }>Submit</button>
         <br></br>
         <br></br>
-      
         { this.state.messages.map( ( message, index ) => (
-          <MessagesList key={index} message={message}/>
-
-        )) }
-
+          <MessagesList key={ index } message={message}/>
+        ) ) }
       </div>
     );
   }

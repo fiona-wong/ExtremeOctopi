@@ -14,7 +14,7 @@ class Messages extends React.Component {
       message: '',
       messages: []
     };
-
+    this.updateMessages.bind(this)
     this.updateMessages(this.user);
   }
 

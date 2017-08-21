@@ -421,7 +421,8 @@ var postUser = function (userInfo, cookie, callback) {
             password: userInfo.password,
             fullname: userInfo.fullname,
             email: userInfo.email,
-            location: userInfo.location
+            location: userInfo.location,
+            img: userInfo.img
           }
         },
         {
@@ -509,7 +510,9 @@ var postTestResults = function (user, results, callback) {
 // };
 
 // senderName = sender, receiverName = receiver, messageText = message
-var postMessage = function (senderName, receiverName, messageText, callback) {
+var postMessage = function (senderName, receiverName, messageText, callback){
+
+  console.log('db', senderName, receiverName, messageText);
   var message = new Message({
     sender: senderName,
     receiver: receiverName,
@@ -517,7 +520,8 @@ var postMessage = function (senderName, receiverName, messageText, callback) {
     time: Date.now()
   });
 
-  message.save(function () {
+  message.save(function (err) {
+    if(err) console.log(err);
     callback();
   });
 };

@@ -7,7 +7,7 @@ class Profile extends React.Component {
   	console.log(props);
 
   	var regexp = /^\/Profile\/(.*)\/$/;
-  	var user = props.history.location.pathname.match( regexp )[ 1 ];
+    this.user = props.history.location.pathname.match( regexp )[ 1 ];
 
   	this.state = {
   		profilePic: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg',
@@ -18,12 +18,13 @@ class Profile extends React.Component {
   		aboutme: '(ノ°Д°）ノ︵ ┻━┻ | Please log in',
   	};
 
-  	this.loadProfile(user);
+  	this.loadProfile(this.user);
+
+  	this.handleClick = this.handleClick.bind(this);
 
 	}
 
 	loadProfile(user) {
-    console.log(user);
 
     if(user === 'home') {
       $.ajax( {
@@ -61,6 +62,10 @@ class Profile extends React.Component {
     }
   }
 
+  handleClick() {
+    this.props.history.push( '/Messages/' + this.user + '/' );
+  }
+
   componentDidMount () {
 
   }
@@ -80,7 +85,7 @@ class Profile extends React.Component {
             <br/>
             <strong>About Me:&nbsp;</strong>{ this.state.aboutme }
             <br/>
-            <button className="message-button"><img src="logo.png" width="30" height="30" className="d-inline-block align-top" alt=""/>Send { this.state.fullname } a message!</button>
+            <button className="message-button" onClick={() => this.handleClick()}><img src="logo.png" width="30" height="30" className="d-inline-block align-top" alt=""/>Send { this.state.fullname } a message!</button>
           </div>
       </div>
     );

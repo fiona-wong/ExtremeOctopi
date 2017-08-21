@@ -25,7 +25,6 @@ app.get( '/profile', ( req, res ) => {
 } );
 
 app.post( '/friendProfile', ( req, res ) => {
-  console.log(req.body);
   db.getProfile( req.body.username, ( profile ) => {
     res.status( 200 ).send( JSON.stringify( profile ) );
   } );
@@ -66,6 +65,13 @@ app.get( '/messages', ( req, res ) => {
     }
   } );
 } );
+
+app.post('/friendMessages', (req, res) => {
+  console.log('In friend Messages')
+  db.getMessages( req.body.username, ( messages ) => {
+    res.status( 200 ).send( JSON.stringify( messages ) );
+  });
+});
 
 app.post( '/signup', ( req, res ) => {
   var newUser = {
@@ -166,11 +172,21 @@ app.post( '/updateUser', ( req, res ) => {
 app.post( '/message', ( req, res ) => {
   cookies.verifySession( req, res, ( valid ) => {
     if ( valid ) {
-      db.postMessage( req.session.username, req.body.match, req.body.message, () => {
+      console.log('valid', req.session.username, req.body.message);
+      db.postMessage( req.session.username, req.session.username, req.body.message, () => {
         res.status( 201 ).end( JSON.stringify( true ) );
       } );
     }
   } )
+} );
+
+app.post( '/messageFriend', ( req, res ) => {
+  cookies.verifySession( req, res, ( valid ) => {
+
+      db.postMessage( req.session.username, req.body.username, req.body.message, () => {
+        res.status( 201 ).end( JSON.stringify( true ) );
+      });
+  })
 } );
 
 app.all( '*', ( req, res ) => {

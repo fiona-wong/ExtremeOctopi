@@ -9,7 +9,8 @@ class Signup extends React.Component {
       fullname: '',
       email: '',
       username: '',
-      password: ''
+      password: '',
+      img: ''
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,7 +37,8 @@ class Signup extends React.Component {
         fullname: this.state.fullname,
         email: this.state.email,
         username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
+        img: 'https://s-media-cache-ak0.pinimg.com/originals/36/43/e7/3643e7e8dab9b88b3972ee1c9f909dea.jpg'
       },
       success: (data) => {
         this.props.history.push('/Test');
@@ -57,7 +59,7 @@ class Signup extends React.Component {
             <input
               size="35"
               className="form-control"
-              required="true"
+              required
               autoFocus=""
               name="fullname"
               type="text"
@@ -69,7 +71,7 @@ class Signup extends React.Component {
             <input
               size="35"
               className="form-control"
-              required="true"
+              required
               autoFocus=""
               name="email"
               type="text"
@@ -81,7 +83,7 @@ class Signup extends React.Component {
             <input
               size="35"
               className="form-control"
-              required="true"
+              required
               autoFocus=""
               name="username"
               type="text"
@@ -93,7 +95,7 @@ class Signup extends React.Component {
             <input
               size="35"
               className="form-control"
-              required="true"
+              required
               autoFocus=""
               name="password"
               type="password"

@@ -117,25 +117,28 @@ var mostCompatible = {
 app.post( '/test', ( req, res ) => {
   db.postTestResults( req.session.username, req.body.testResults, allUsers => {
     var matchesList = [];
-    allUsers.forEach(user => {
-      console.log(req.body.testResults);
-      console.log(mostCompatible[req.body.testResults]);
-      if (user.username !== req.session.username && mostCompatible[req.body.testResults].indexOf(user.testResults) !== -1) {
-        var friend = {
-          fusername: user.username,
-          ffullname: user.fullname,
-          femail: user.email,
-          flocation: user.location,
-          fhobbies: user.hobbies,
-          fabout: user.blog,
-          fpic: user.img
-        };
-        matchesList.push(friend);
-      }
-    });
-    db.postMatches(req.session.username, matchesList, (data) => {
-      res.status( 201 ).send(data);
-    })
+
+    if (allUsers.length > 0) {
+      allUsers.forEach(user => {
+        if (user.username !== req.session.username && mostCompatible[req.body.testResults].includes(user.testResults)) {
+          var friend = {
+            fusername: user.username,
+            ffullname: user.fullname,
+            femail: user.email,
+            flocation: user.location,
+            fhobbies: user.hobbies,
+            fabout: user.blog,
+            fpic: user.img
+          }
+          matchesList.push(friend);
+        }
+      })
+      db.postMatches(req.session.username, matchesList, (data) => {
+        res.status( 201 );
+      })
+    } else {
+      res.status(201);
+    }
   })
 });
 

@@ -17,7 +17,7 @@ const EditProfile = ( props ) => (
       </div>
       <div className="form-group">
         <label className="control-label col-sm-4" htmlFor="about">About Me:</label>
-        <input id="about" value={props.a} name="aboutme" type="text" onChange={ props.handleChange }/>
+        <textarea id="about" value={props.a} name="aboutme" type="text" onChange={ props.handleChange }/>
       </div>
       <div className="form-group">
         <div className="col-sm-offset-5">

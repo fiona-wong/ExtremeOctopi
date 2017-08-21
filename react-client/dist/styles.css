@@ -135,15 +135,15 @@ h3 {
 }
 
 .img-circle {
-    height: 150px;
-    width: 150px;
+    height: 350px;
+    width: 350px;
     opacity: .95;
     border-radius: 50%;
     border: 2px;
     box-shadow: 4px 4px 4px #AE7182;
     position: fixed;
     top: 100px;
-    left: 20px;
+    left: 50px;
 }
 
 .center {

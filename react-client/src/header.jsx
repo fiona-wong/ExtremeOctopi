@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import {compile} from 'path-to-regexp';
 
-const MY_ROUTE = '/Profile/:userId/';
-const toPath = compile(MY_ROUTE);
+const MY_ROUTE_PROFILE = '/Profile/:userId/';
+const toPath = compile(MY_ROUTE_PROFILE);
+const MY_ROUTE_MESSAGES = '/Messages/:userId/';
+const toPathMessages = compile(MY_ROUTE_MESSAGES)
 
 const Header = () => (
 
@@ -20,7 +22,7 @@ const Header = () => (
     <li className="nav-item"><Link to='/Login'>Login</Link></li>
     <li className="nav-item"><Link to={toPath({ userId: 'home'})}>Profile</Link></li>
     <li className="nav-item"><Link to='/Matches'>Matches</Link></li>
-    <li className="nav-item"><Link to='/Messages'>Messages</Link></li>
+    <li className="nav-item"><Link to={toPathMessages({ userId: 'home'})}>Messages</Link></li>
   </ul>
   </div>
   </nav>

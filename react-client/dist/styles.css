@@ -203,7 +203,7 @@ textarea {
 
 
 .talk-bubble {
-  margin: 40px;
+  margin: 20px;
   display: inline-block;
   position: relative;
   width: 200px;
@@ -237,7 +237,7 @@ textarea {
 }
 
 .talktext{
-  color: #FFB985;
+  color: #fff;
   padding: 1em;
   text-align: left;
   line-height: 1.5em;

@@ -102,14 +102,18 @@ class Messages extends React.Component {
 
         <h1>{this.user}</h1>
 
+      <div className="item-name">
+
         <input onChange={ this.changeMatch.bind( this ) }  placeholder="Chat with..."></input>
         <br></br>
 
         <input onChange={ this.changeMessage.bind( this ) }></input>
+        <br/>
         <button onClick={ this.onClick.bind( this ) }>Start Chat</button>
+        </div>
         <br></br>
         <br></br>
-
+      
         { this.state.messages.map( ( message, index ) => (
           <MessagesList key={index} message={message}/>
 

@@ -89,6 +89,9 @@ class Matches extends React.Component {
             <MatchesList matches={ this.state.matches } lookupProfile={this.lookupProfile}/>
           </div>
         </div>
+        <br/>
+        <br/>
+        <br/>
         <div className="row get-messages">
           <button className="messages-button">Messages Inbox</button>
         </div>

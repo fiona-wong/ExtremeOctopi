@@ -16,25 +16,32 @@ app.get( '/profile', ( req, res ) => {
   cookies.verifySession( req, res, ( valid ) => {
     if ( valid ) {
       db.getProfile( req.session.username, ( profile ) => {
-        res.status( 200 ).end( JSON.stringify( profile ) );
+        res.status( 200 ).send( JSON.stringify( profile ) );
       } );
     } else {
-      res.status( 200 ).end( JSON.stringify( false ) );
+      res.status( 200 ).send( JSON.stringify( false ) );
     }
   } );
 } );
 
-app.get( '/friendProfile', ( req, res ) => {
-  cookies.verifySession( req, res, ( valid ) => {
-    if ( valid ) {
-      db.getProfile( req.body.username, ( profile ) => {
-        res.status( 200 ).end( JSON.stringify( profile ) );
-      } );
-    } else {
-      res.status( 200 ).end( JSON.stringify( false ) );
-    }
+app.post( '/friendProfile', ( req, res ) => {
+  console.log(req.body);
+  db.getProfile( req.body.username, ( profile ) => {
+    res.status( 200 ).send( JSON.stringify( profile ) );
   } );
-} );
+});
+
+// app.get( '/friendProfile', ( req, res ) => {
+//   cookies.verifySession( req, res, ( valid ) => {
+//     if ( valid ) {
+//       db.getProfile( req.body.username, ( profile ) => {
+//         res.status( 200 ).end( JSON.stringify( profile ) );
+//       } );
+//     } else {
+//       res.status( 200 ).end( JSON.stringify( false ) );
+//     }
+//   } );
+// } );
 
 app.get( '/matches', ( req, res ) => {
   cookies.verifySession( req, res, ( valid ) => {
@@ -110,6 +117,7 @@ var mostCompatible = {
 app.post( '/test', ( req, res ) => {
   db.postTestResults( req.session.username, req.body.testResults, allUsers => {
     var matchesList = [];
+
     if (allUsers.length > 0) {
       allUsers.forEach(user => {
         if (user.username !== req.session.username && mostCompatible[req.body.testResults].includes(user.testResults)) {
